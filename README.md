@@ -10,7 +10,7 @@ Life is amazing but you have to live it and not be stuck in a rut (N: "sleur"). 
 __*Not anymore*__
 
 Using this app, you will keep track of your bucketlist, have a clear overview, add item to the list and check them off. You will be able to set reminders for your items and share the items with friends.
-The things on your bucket list does not have to be exciting skydiving/bungiejumping kind of things but it acn also just be a pub you want to visit. That is when the location function comes in handy. You can pin a location to an item to show what and where the item is located. This is done through the google maps api.
+The things on your bucket list does not have to be exciting skydiving/bungiejumping kind of things but it acn also just be a pub you want to visit. That is when the location function comes in handy. You can pin a location to an item to show what and where the item is located. This is done through the google maps api. Also, you can get suggestions on bucketlist items when creating a new item. 
 
 ## Functions
 The following functionalities will be in the app:
@@ -30,5 +30,7 @@ The following functionalities will be in the app:
 
 ## External components
 Google Firebase Authentication and database
+Adventure bucketlist API: http://developer.adventurebucketlist.com/?javascript#introduction-to-api
+Google places API: https://developers.google.com/places/android-sdk/intro
 
 
