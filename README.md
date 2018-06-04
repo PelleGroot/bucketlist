@@ -1,4 +1,4 @@
-# bucketlist
+# Bucketlist
 This app will allow you to keep track of your bucketlist, add new items on the list and let you check them, when you've done it.
 When you have done an item you will also get the opporunity to write your experience, and add a picture.
 
