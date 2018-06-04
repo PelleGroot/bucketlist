@@ -29,8 +29,9 @@ The following functionalities will be in the app:
 * 
 
 ## External components
-Google Firebase Authentication and database
-Adventure bucketlist API: http://developer.adventurebucketlist.com/?javascript#introduction-to-api
-Google places API: https://developers.google.com/places/android-sdk/intro
+* Google Firebase Authentication and database
+* Adventure bucketlist API: http://developer.adventurebucketlist.com/?javascript#introduction-to-api
+* Google places API: https://developers.google.com/places/android-sdk/intro
 
+## Images
 
