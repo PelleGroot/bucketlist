@@ -19,14 +19,15 @@ The following functionalities will be in the app:
 * a list of items (MVP)
 * to add items to the list (MVP)
 * to check off items of the list (MVP)
-* to write you experiences of the item
+* to write you experiences of the item (MVP)
 * add photos to your items
 * to add locations to the items
-* rate the items on how much you are looking foward to experience it 
+* rate the items on how you liked it
 * share items with friends
 * share your list with friends
 * set a reminder of your bucketlist items
-* 
+* Browse cool activities in different locations
+* Add those browsed activities to your own bucketlist
 
 ## External components
 * Google Firebase Authentication and database
