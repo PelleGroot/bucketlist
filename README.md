@@ -30,9 +30,9 @@ The following functionalities will be in the app:
 * Add those browsed activities to your own bucketlist
 
 ## External components
-* Google Firebase Authentication and database
-* Adventure bucketlist API: http://developer.adventurebucketlist.com/?javascript#introduction-to-api
-* Google places API: https://developers.google.com/places/android-sdk/intro
+* [Google Firebase Authentication and database](https://firebase.google.com/docs/auth/users)
+* [Adventure bucketlist API](http://developer.adventurebucketlist.com/?javascript#introduction-to-api)
+* [Google places API](https://developers.google.com/places/android-sdk/intro)
 
 ## Images
 For a clickable UI design, visit [this](https://www.fluidui.com/editor/live/project/p_GaQRHQzD5po83MybhQaNpEQLfzozx631)
