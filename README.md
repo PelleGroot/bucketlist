@@ -6,7 +6,8 @@ You will be logging in through facebook. This is so you can share your bucketlis
 
 ## Problem statement
 Life is amazing but you have to live it and not be stuck in a rut (N: "sleur"). To help keep life interesting, people make a bucketlist but this list is often forgotten or not completed.
-*Not anymore*
+
+_*Not anymore*_
 
 Using this app, you will keep track of your bucketlist, have a clear overview, add item to the list and check them off. You will be able to set reminders for your items and share the items with friends. 
 
