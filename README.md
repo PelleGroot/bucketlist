@@ -9,17 +9,26 @@ Life is amazing but you have to live it and not be stuck in a rut (N: "sleur"). 
 
 __*Not anymore*__
 
-Using this app, you will keep track of your bucketlist, have a clear overview, add item to the list and check them off. You will be able to set reminders for your items and share the items with friends. 
+Using this app, you will keep track of your bucketlist, have a clear overview, add item to the list and check them off. You will be able to set reminders for your items and share the items with friends.
+The things on your bucket list does not have to be exciting skydiving/bungiejumping kind of things but it acn also just be a pub you want to visit. That is when the location function comes in handy. You can pin a location to an item to show what and where the item is located. This is done through the google maps api.
 
-## MVP
-The following functionalities are needed for the MVP:
-* able to log in
-* a list of items
-* to add items to the list
-* to check off items of the list
+## Functions
+The following functionalities will be in the app:
+
+* able to log in (MVP)
+* a list of items (MVP)
+* to add items to the list (MVP)
+* to check off items of the list (MVP)
 * to write you experiences of the item
+* add photos to your items
 * to add locations to the items
-* rate the items on how much you are looking foward to experience it
+* rate the items on how much you are looking foward to experience it 
+* share items with friends
+* share your list with friends
+* set a reminder of your bucketlist items
+* 
 
+## External components
+Google Firebase Authentication and database
 
 
