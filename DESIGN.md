@@ -31,4 +31,7 @@ setPhoto
 * [Adventure bucketlist API](http://developer.adventurebucketlist.com/?javascript#introduction-to-api)
 * [Google places API](https://developers.google.com/places/android-sdk/intro)
 
+## UI design
+For a clickable UI design, visit [this](https://www.fluidui.com/editor/live/project/p_GaQRHQzD5po83MybhQaNpEQLfzozx631)
+
 ![Design doc Bucketlist](/images/Bucketlist_app_DesignDoc.png)
