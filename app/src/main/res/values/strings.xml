@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Bucketlist</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signin">Sign in</string>
+    <string name="googleSignIn">Sign in using Google</string>
+    <string name="confirmPassword">Type your password again</string>
+    <string name="createAccount">Create account</string>
 </resources>
