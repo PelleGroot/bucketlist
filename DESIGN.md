@@ -7,7 +7,7 @@ Bucketlist
 -------------|
 List[activity]
 **functions**
-Share list
+shareList
 
 Activity
 -------------|
