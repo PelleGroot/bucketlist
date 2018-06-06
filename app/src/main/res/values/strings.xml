@@ -6,4 +6,7 @@
     <string name="googleSignIn">Sign in using Google</string>
     <string name="confirmPassword">Type your password again</string>
     <string name="createAccount">Create account</string>
+    <string name="profile">Profile</string>
+    <string name="bucketlist">Bucketlist</string>
+    <string name="browse">Browse</string>
 </resources>
