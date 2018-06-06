@@ -31,6 +31,25 @@ setPhoto
 * [Adventure bucketlist API](http://developer.adventurebucketlist.com/?javascript#introduction-to-api)
 * [Google places API](https://developers.google.com/places/android-sdk/intro)
 
+## Database
+I'm going to use a firebase database to store the users and their bucketlist
+
+* UserId
+* Username
+* UserPhoto
+* UserBucketlist
+  * BucketItem
+    * ItemName
+    * ItemDescription
+    * ItemLocation
+    * ItemPhoto
+    * ItemDone
+    * ItemRating
+
+## Activities scheme
+Next is a clear overview of the activities inside the app and the functions that are in the activities
+![Activities bucketlist](/images/bucketlistActivities.png)
+
 ## UI design
 For a clickable UI design, visit [this](https://www.fluidui.com/editor/live/project/p_GaQRHQzD5po83MybhQaNpEQLfzozx631)
 
