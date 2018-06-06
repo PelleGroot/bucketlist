@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "998406176020",
+    "firebase_url": "https://bucketlist-b2c80.firebaseio.com",
+    "project_id": "bucketlist-b2c80",
+    "storage_bucket": "bucketlist-b2c80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998406176020:android:c76bbb5561bf7f91",
+        "android_client_info": {
+          "package_name": "nl.pellegroot.bucketlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998406176020-gsd5gmh2vkpl1pife2jvofida5d152mu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nl.pellegroot.bucketlist",
+            "certificate_hash": "c6b690e1488cd77cbd88fab3de901c3877ee9a7a"
+          }
+        },
+        {
+          "client_id": "998406176020-82pndffuf6upm2ml9b2pmk83ei6n3qag.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "998406176020-82pndffuf6upm2ml9b2pmk83ei6n3qag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkkFm1EZUpwyqt1Yy38HUxV6CSJ_bPFq0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998406176020-82pndffuf6upm2ml9b2pmk83ei6n3qag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
