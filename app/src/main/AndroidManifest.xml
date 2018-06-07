@@ -21,7 +21,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".AddingItemActivity" />
-        <activity android:name=".bucketListItemActivity"></activity>
+        <activity android:name=".bucketListItemActivity" />
+        <activity android:name=".SearchResultActivity"></activity>
     </application>
 
 </manifest>
