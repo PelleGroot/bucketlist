@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/CA_email"
+            android:id="@+id/ca_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -20,7 +20,7 @@
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/CA_password"
+            android:id="@+id/ca_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -28,7 +28,7 @@
             android:inputType="textPassword" />
 
         <EditText
-            android:id="@+id/CA_ConfirmPassword"
+            android:id="@+id/ca_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -36,7 +36,7 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/CA_CreateAccount"
+            android:id="@+id/ca_create_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/createAccount" />

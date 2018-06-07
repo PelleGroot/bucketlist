@@ -9,4 +9,18 @@
     <string name="profile">Profile</string>
     <string name="bucketlist">Bucketlist</string>
     <string name="browse">Browse</string>
+    <string name="add_new_item">Add a new item</string>
+    <string name="input_name">Name:</string>
+    <string name="input_description">Description:</string>
+    <string name="input_location">Location:</string>
+    <string name="search">Search</string>
+    <string name="search_for_activities">Search for activities</string>
+    <string name="location">Location</string>
+    <string name="distance">Distance</string>
+    <string name="category">Category</string>
+    <string name="price">Price</string>
+    <string name="to">To</string>
+    <string name="didido">Did I do this</string>
+    <string name="setReminder">Set Reminder</string>
+    <string name="share">Share</string>
 </resources>

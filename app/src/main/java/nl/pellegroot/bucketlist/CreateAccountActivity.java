@@ -35,11 +35,11 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        emailaddressField = (EditText) findViewById(R.id.CA_email);
-        passwordField = (EditText) findViewById(R.id.CA_password);
-        confirmPasswordField = (EditText) findViewById(R.id.CA_ConfirmPassword);
+        emailaddressField = (EditText) findViewById(R.id.ca_email);
+        passwordField = (EditText) findViewById(R.id.ca_password);
+        confirmPasswordField = (EditText) findViewById(R.id.ca_confirm_password);
 
-        createAccountButton = (Button) findViewById(R.id.CA_CreateAccount);
+        createAccountButton = (Button) findViewById(R.id.ca_create_account);
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
