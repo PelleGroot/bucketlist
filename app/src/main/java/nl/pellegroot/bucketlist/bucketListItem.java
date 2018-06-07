@@ -3,7 +3,7 @@ package nl.pellegroot.bucketlist;
 import android.location.Location;
 import android.media.Image;
 
-public class bucketlistItem {
+public class bucketListItem {
     public String name;
     public String description;
     public Location location;
