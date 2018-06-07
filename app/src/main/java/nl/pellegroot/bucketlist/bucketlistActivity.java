@@ -17,7 +17,7 @@ public class bucketlistActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        final Button btnProfile = findViewById(R.id.btn_profile);
+        Button btnProfile = findViewById(R.id.btn_profile);
         Button btnSearch = findViewById(R.id.btn_search);
 
         btnProfile.setOnClickListener(new View.OnClickListener(){
@@ -31,6 +31,15 @@ public class bucketlistActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(bucketlistActivity.this, SearchActivity.class));
+            }
+        });
+
+        Button btnAddItem = findViewById(R.id.btn_add_item);
+
+        btnAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(bucketlistActivity.this, AddingItemActivity.class));
             }
         });
     }
