@@ -46,7 +46,7 @@ private FirebaseAuth.AuthStateListener mAuthListener;
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 if(firebaseAuth.getCurrentUser() != null){
-                    startActivity(new Intent(LoginActivity.this, CreateAccountActivity.class));
+//                    startActivity(new Intent(LoginActivity.this, CreateAccountActivity.class));
                 }
             }
         };
@@ -86,6 +86,9 @@ private FirebaseAuth.AuthStateListener mAuthListener;
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(!task.isSuccessful()){
                         Toast.makeText(LoginActivity.this, "Sign in error", Toast.LENGTH_LONG).show();
+                    }
+                    if(task.isSuccessful()){
+                        startActivity(new Intent(LoginActivity.this, bucketlistActivity.class));
                     }
                 }
             });
