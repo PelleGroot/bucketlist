@@ -13,6 +13,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        // TODO: create an edit profile option, to add name, picture and stuff
+
         Button btnBucketlist = findViewById(R.id.btn_bucketlist);
         Button btnSearch = findViewById(R.id.btn_search);
 

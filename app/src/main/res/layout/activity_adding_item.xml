@@ -11,18 +11,32 @@
         android:id="@+id/txt_add_new_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_new_item" />
+        android:layout_margin="8dp"
+        android:fontFamily="@font/changa_one"
+        android:lineSpacingExtra="8sp"
+        android:text="@string/add_new_item"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txt_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/input_name" />
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/input_name"
+        android:textSize="25sp" />
 
     <EditText
         android:id="@+id/input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name" />
@@ -31,12 +45,21 @@
         android:id="@+id/txt_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/input_description" />
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/input_description"
+        android:textSize="25sp" />
 
     <EditText
         android:id="@+id/input_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"
         android:ems="10"
         android:inputType="text"
         android:text="Description" />
@@ -45,20 +68,31 @@
         android:id="@+id/txt_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/input_location" />
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/input_location"
+        android:textSize="25sp" />
 
     <EditText
         android:id="@+id/input_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"
         android:ems="10"
         android:inputType="text|textPersonName"
         android:text="Location" />
 
     <Button
-        android:id="@+id/btn_search"
+        android:id="@+id/btn_add_item_to_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/search" />
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="8dp"
+        android:text="@string/add_to_list" />
 
 </LinearLayout>

@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Bucketlist</string>
+    <string name="add_to_list">Add item to list</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="signin">Sign in</string>
-    <string name="googleSignIn">Sign in using Google</string>
+    <string name="googleSignIn">S58ign in using Google</string>
     <string name="confirmPassword">Type your password again</string>
     <string name="createAccount">Create account</string>
     <string name="profile">Profile</string>

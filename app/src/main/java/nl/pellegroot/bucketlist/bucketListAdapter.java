@@ -26,7 +26,7 @@ public class bucketListAdapter extends ArrayAdapter{
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.bucketlist_adapter_item, parent, false);
         }
 
-
+        // TODO: get the bucketlistItems from the database.child(curUserId)
 
         return convertView;
     }

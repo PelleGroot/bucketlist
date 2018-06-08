@@ -15,7 +15,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -25,6 +28,9 @@ public class CreateAccountActivity extends AppCompatActivity {
     private Button createAccountButton;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference userRef;
+    private FirebaseDatabase database;
+    private String curUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,9 @@ public class CreateAccountActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         mAuth = FirebaseAuth.getInstance();
+
+        database = FirebaseDatabase.getInstance();
+        userRef = database.getReference("Users");
 
         emailaddressField = (EditText) findViewById(R.id.ca_email);
         passwordField = (EditText) findViewById(R.id.ca_password);
@@ -65,10 +74,15 @@ public class CreateAccountActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()) {
-                            Toast.makeText(CreateAccountActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                            FirebaseAuthException e = (FirebaseAuthException)task.getException();
+                            Toast.makeText(CreateAccountActivity.this, "Something went wrong: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                         if(task.isSuccessful()){
                             FirebaseUser User = mAuth.getCurrentUser();
+                            curUserId = User.getUid();
+                            userRef.setValue(curUserId);
+                            userRef.child(curUserId).setValue("bucketlist");
+
                             startActivity(new Intent(CreateAccountActivity.this, bucketlistActivity.class));
                         }
                     }

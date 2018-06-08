@@ -1,15 +1,24 @@
 package nl.pellegroot.bucketlist;
 
-import android.arch.lifecycle.ViewModelStore;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Logger;
+
 public class bucketlistActivity extends AppCompatActivity {
+
+private FirebaseAuth mAuth;
+private FirebaseUser curUser;
+private String curUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +27,17 @@ public class bucketlistActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        mAuth = FirebaseAuth.getInstance();
+        curUser = mAuth.getCurrentUser();
+        curUserId = curUser.getUid();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userRef = database.getReference("Users");
+
+        // TODO: get the users bucketlist and load it into the screen, using a adapter
+
+
+        // TODO: find out if I can easily can create a menu class
         Button btnProfile = findViewById(R.id.btn_profile);
         Button btnSearch = findViewById(R.id.btn_search);
 

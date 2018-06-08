@@ -10,4 +10,5 @@ public class bucketListItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bucket_list_item);
     }
+    // TODO: get the bucketlistItems from the database.child(curUserId)
 }

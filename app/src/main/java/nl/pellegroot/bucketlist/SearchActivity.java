@@ -13,6 +13,9 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        // TODO: Pass the filled in item to the API, on response, pass the data to the next activity(?)
+        // TODO: On error, createtoast message to check the fields
+
         Button btnBucketlist = findViewById(R.id.btn_bucketlist);
         Button btnProfile = findViewById(R.id.btn_profile);
 
