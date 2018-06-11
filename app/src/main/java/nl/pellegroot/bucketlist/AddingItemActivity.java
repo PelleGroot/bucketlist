@@ -39,10 +39,13 @@ public class AddingItemActivity extends AppCompatActivity {
         btnAddToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            bucketListItem newItem = new bucketListItem(inputName.getText().toString(), inputDescription.getText().toString());
+            bucketListItem newItem = new bucketListItem();
+            newItem.setName(inputName.getText().toString());
+            newItem.setDescription(inputDescription.getText().toString());
+
             if (userRef.push().setValue(newItem).isSuccessful()){
                 // TODO: Get ID of newly created entry and send it to the new activity
-                startActivity(new Intent(AddingItemActivity.this, bucketListItemActivity.class));
+                startActivity(new Intent(AddingItemActivity.this, bucketlistActivity.class));
             }
             }
         });

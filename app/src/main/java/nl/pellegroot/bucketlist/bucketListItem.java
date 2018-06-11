@@ -33,9 +33,9 @@ public class bucketListItem {
         this.description = description;
     }
 
-    public bucketListItem(String name, String description) {
-        this.name = name;
-        this.description = description;
+    public bucketListItem() {
+        this.name = "Activity";
+        this.description = "description";
         this.location = null;
         this.photo = null;
         this.activityDone = false;
