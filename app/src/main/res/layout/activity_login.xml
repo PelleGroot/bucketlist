@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:padding="10dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="341dp">
 
@@ -17,6 +18,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:contentDescription="@string/email"
             android:ems="10"
             android:hint="@string/email"
@@ -31,24 +33,34 @@
             android:hint="@string/password"
             android:inputType="textPassword" />
 
-        <Button
-            android:id="@+id/signIn"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/signin" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center|bottom">
 
-        <Button
-            android:id="@+id/createAccountButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/createAccount" />
+            <Button
+                android:id="@+id/signIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/signin" />
 
-        <Button
-            android:id="@+id/GoogleSignIn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/googleSignIn"
-            tools:layout_editor_absoluteY="139dp" />
+            <Button
+                android:id="@+id/GoogleSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/googleSignIn"
+                tools:layout_editor_absoluteY="139dp" />
+
+            <Button
+                android:id="@+id/createAccountButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="@string/createAccount" />
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -84,21 +84,4 @@ public class bucketListItem {
         this.price = price;
     }
 
-    public void addNewItemToDB(){
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser curUser = mAuth.getCurrentUser();
-        String curUserId = curUser.getUid();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userRef = database.getReference("Users").child(curUserId).child("bucketlist");
-
-        userRef.setValue(name);
-        userRef.child(name).setValue(description);
-        userRef.child(name).setValue(location);
-        userRef.child(name).setValue(photo);
-        userRef.child(name).setValue(activityDone);
-        userRef.child(name).setValue(rating);
-        userRef.child(name).setValue(price);
-    }
 }
