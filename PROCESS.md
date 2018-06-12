@@ -6,3 +6,11 @@ Finished the authentication with email and password and create the activities I 
 
 # 8-6
 Started working on setting up the firebase database. Got the userId from authentication as userId in the database.
+
+#11-6
+Got the database working and started working on getting the adapter working in my bucketlistview. Still had an issue with the adapter on the end of the day.
+
+#12-6
+Thanks to Nina from the daily standup, I got the adapter working properly. And also implemented the google places API. And started working on the details screen of the activities.
+
+#13-6
