@@ -78,17 +78,12 @@
         android:text="@string/input_location"
         android:textSize="25sp" />
 
-    <EditText
-        android:id="@+id/input_location"
+    <fragment
+        android:id="@+id/place_autocomplete_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="2dp"
-        android:ems="10"
-        android:inputType="text|textPersonName"
-        android:text="Location" />
+        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+        />
 
     <Button
         android:id="@+id/btn_add_item_to_list"

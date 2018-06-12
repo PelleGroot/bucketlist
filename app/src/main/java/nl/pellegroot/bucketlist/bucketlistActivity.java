@@ -51,6 +51,13 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
                     bucketItem.setActivityDone(postSnapshot.getValue(bucketListItem.class).getActivityDone());
                     bucketList.add(bucketItem);
                 }
+
+                // TODO: get the users bucketlist and load it into the screen, using a adapter
+                ListView Listview = findViewById(R.id.lv_bucketlist);
+                Log.d("Adapter stuff", "onCreate: " + bucketList.get(0).getName());
+                if(bucketList!= null) {
+                    Listview.setAdapter(new bucketListAdapter(bucketlistActivity.this, R.layout.activity_bucket_list_item, bucketList));
+                }
             }
 
             @Override
@@ -59,12 +66,6 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
 
             }
         });
-        // TODO: get the users bucketlist and load it into the screen, using a adapter
-        ListView Listview = findViewById(R.id.lv_bucketlist);
-        Log.d("Adapter stuff", "onCreate: " + bucketList.get(0).getName());
-        if(bucketList!= null) {
-            Listview.setAdapter(new bucketListAdapter(bucketlistActivity.this, R.layout.activity_bucket_list_item, bucketList));
-        }
 
         // TODO: find out if I can easily can create a menu class
         Button btnProfile = findViewById(R.id.btn_profile);

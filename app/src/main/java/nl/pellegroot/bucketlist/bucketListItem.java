@@ -3,6 +3,7 @@ package nl.pellegroot.bucketlist;
 import android.location.Location;
 import android.media.Image;
 
+import com.google.android.gms.location.places.Place;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -11,11 +12,22 @@ import com.google.firebase.database.FirebaseDatabase;
 public class bucketListItem {
     public String name;
     public String description;
-    public Location location;
+    public String location;
     public Image photo;
     public Boolean activityDone;
     public int rating;
     public float price;
+
+
+    public bucketListItem() {
+        this.name = "Activity";
+        this.description = "description";
+//        this.location = null;
+        this.photo = null;
+        this.activityDone = false;
+        this.rating = 0;
+        this.price = 0;
+    }
 
     public String getName() {
         return name;
@@ -33,22 +45,11 @@ public class bucketListItem {
         this.description = description;
     }
 
-    public bucketListItem() {
-        this.name = "Activity";
-        this.description = "description";
-        this.location = null;
-        this.photo = null;
-        this.activityDone = false;
-        this.rating = 0;
-        this.price = 0;
-    }
-
-    public Location getLocation() {
+    public String getLocation() {
         return location;
-
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
