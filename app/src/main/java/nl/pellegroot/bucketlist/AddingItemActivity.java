@@ -74,7 +74,6 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
             newItem.setDescription(inputDescription.getText().toString());
             newItem.setLocation(placeId);
             userRef.push().setValue(newItem);
-            // TODO: Get ID of newly created entry and send it to the new activity
             startActivity(new Intent(AddingItemActivity.this, bucketlistActivity.class));
             }
         });
@@ -85,19 +84,16 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
                 placeId = place.getId();
                 Log.i("OnPlaceSelected", "Place: " + place.getId());
             }
 
             @Override
             public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i("OnError", "An error occurred: " + status);
+                Toast.makeText(AddingItemActivity.this, "Location search went wrong, try again", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

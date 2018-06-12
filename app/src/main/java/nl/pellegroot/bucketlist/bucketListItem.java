@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class bucketListItem {
+    public String itemId;
     public String name;
     public String description;
     public String location;
@@ -27,6 +28,14 @@ public class bucketListItem {
         this.activityDone = false;
         this.rating = 0;
         this.price = 0;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     public String getName() {

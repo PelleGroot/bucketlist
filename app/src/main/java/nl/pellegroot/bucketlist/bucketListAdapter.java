@@ -55,8 +55,6 @@ public class bucketListAdapter extends ArrayAdapter{
         itemName.setText(buckItemName);
         itemDone.setChecked(buckItemDone);
 
-        // TODO: get the bucketlistItems from the database.child(curUserId)
-
         return convertView;
     }
 }

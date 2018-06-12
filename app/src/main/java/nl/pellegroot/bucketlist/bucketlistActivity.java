@@ -1,11 +1,14 @@
 package nl.pellegroot.bucketlist;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -49,21 +52,20 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
                     bucketListItem bucketItem = new bucketListItem();
                     bucketItem.setName(postSnapshot.getValue(bucketListItem.class).getName());
                     bucketItem.setActivityDone(postSnapshot.getValue(bucketListItem.class).getActivityDone());
+                    bucketItem.setItemId(postSnapshot.getValue(bucketListItem.class).getItemId());
                     bucketList.add(bucketItem);
                 }
 
-                // TODO: get the users bucketlist and load it into the screen, using a adapter
                 ListView Listview = findViewById(R.id.lv_bucketlist);
-                Log.d("Adapter stuff", "onCreate: " + bucketList.get(0).getName());
                 if(bucketList!= null) {
                     Listview.setAdapter(new bucketListAdapter(bucketlistActivity.this, R.layout.activity_bucket_list_item, bucketList));
+                    Listview.setOnItemClickListener(new ListViewItemClicked());
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d("DataBase", "onCancelled: Data was not retrieved");
-
             }
         });
 
@@ -93,7 +95,22 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
                 startActivity(new Intent(bucketlistActivity.this, AddingItemActivity.class));
             }
         });
+
     }
 
+    private class ListViewItemClicked implements AdapterView.OnItemClickListener{
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            Log.d("stuff", "onItemClick: ");
+            Cursor cursor = (Cursor) adapterView.getItemAtPosition(i);
+            Log.d("Cursor stuff", "onItemClick: " + cursor);
+        }
+    }
 
+    private class ListViewItemTouched implements AdapterView.OnTouchListener{
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            return false;
+        }
+    }
 }
