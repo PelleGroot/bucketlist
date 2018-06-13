@@ -9,7 +9,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class bucketListItem {
+import java.io.Serializable;
+
+public class bucketListItem implements Serializable{
     public String itemId;
     public String name;
     public String description;

@@ -20,8 +20,9 @@
     <string name="category">Category</string>
     <string name="price">Price</string>
     <string name="to">To</string>
-    <string name="didido">Did I do this</string>
+    <string name="didido">Did I do this: </string>
     <string name="setReminder">Set Reminder</string>
     <string name="share">Share</string>
     <string name="back_to_search">Back to search</string>
+    <string name="add_photo">Add a Photo</string>
 </resources>

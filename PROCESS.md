@@ -14,3 +14,5 @@ Got the database working and started working on getting the adapter working in m
 Thanks to Nina from the daily standup, I got the adapter working properly. And also implemented the google places API. And started working on the details screen of the activities.
 
 #13-6
+Decided to not use the reminder. The idea of the bucketlist app is not to stress you out about stuff you need to do.
+

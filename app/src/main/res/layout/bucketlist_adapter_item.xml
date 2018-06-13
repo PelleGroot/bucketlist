@@ -33,6 +33,7 @@
             android:contextClickable="false"
             android:linksClickable="false"
             android:longClickable="false"
+            android:focusable="false"
             android:padding="3dp" />
     </LinearLayout>
 

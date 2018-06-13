@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,10 +32,8 @@ private String curUserId;
 private ArrayList<bucketListItem> bucketList = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bucketlist);
-
+    protected void onResume() {
+        super.onResume();
         mAuth = FirebaseAuth.getInstance();
         curUser = mAuth.getCurrentUser();
         curUserId = curUser.getUid();
@@ -45,10 +44,8 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                bucketList.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()){
-                    Log.d("DBstuff", "onDataChange: " + postSnapshot.getValue(bucketListItem.class).getName());
-                    Log.d("DBstuff", "onDataChange: " + postSnapshot.getValue(bucketListItem.class).getActivityDone());
-
                     bucketListItem bucketItem = new bucketListItem();
                     bucketItem.setName(postSnapshot.getValue(bucketListItem.class).getName());
                     bucketItem.setActivityDone(postSnapshot.getValue(bucketListItem.class).getActivityDone());
@@ -65,9 +62,15 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("DataBase", "onCancelled: Data was not retrieved");
+                Toast.makeText(bucketlistActivity.this, "Database connection went wrong", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bucketlist);
 
         // TODO: find out if I can easily can create a menu class
         Button btnProfile = findViewById(R.id.btn_profile);
@@ -101,16 +104,10 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
     private class ListViewItemClicked implements AdapterView.OnItemClickListener{
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            Log.d("stuff", "onItemClick: ");
-            Cursor cursor = (Cursor) adapterView.getItemAtPosition(i);
-            Log.d("Cursor stuff", "onItemClick: " + cursor);
-        }
-    }
-
-    private class ListViewItemTouched implements AdapterView.OnTouchListener{
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            return false;
+            bucketListItem clickedItem = (bucketListItem) adapterView.getItemAtPosition(i);
+            Intent intent = new Intent(bucketlistActivity.this, bucketListItemActivity.class);
+            intent.putExtra("CLICKED_ITEM", clickedItem);
+            startActivity(intent);
         }
     }
 }
