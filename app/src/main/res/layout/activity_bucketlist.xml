@@ -22,6 +22,7 @@
                 android:id="@+id/btn_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:layout_weight="1"
                 android:text="@string/profile" />
 
@@ -29,6 +30,7 @@
                 android:id="@+id/btn_bucketlist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:layout_weight="1"
                 android:backgroundTint="@color/common_google_signin_btn_text_light_focused"
                 android:text="@string/bucketlist" />
@@ -37,6 +39,7 @@
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:layout_weight="1"
                 android:text="@string/search" />
 
