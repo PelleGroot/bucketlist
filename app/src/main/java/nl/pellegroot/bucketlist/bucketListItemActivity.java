@@ -54,7 +54,6 @@ public class bucketListItemActivity extends AppCompatActivity {
         final DatabaseReference userRef = database.getReference("Users").child(curUserId).child("bucketlist");
 
         // TODO: ability to add a photo to the activity
-        // TODO: ability to delete item
         // TODO: ability to edit item
 
         Intent intent = getIntent();
@@ -83,7 +82,10 @@ public class bucketListItemActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if(menuItem.getItemId()==R.id.menu_edit)
                 {
-                    // do something
+                    Intent intent = new Intent(bucketListItemActivity.this, AddingItemActivity.class);
+                    intent.putExtra("CLICKED_ITEM", clickedItem);
+                    intent.putExtra("ITEMID", clickedItemId);
+                    startActivity(intent);
                 }
                 else if(menuItem.getItemId()== R.id.menu_delete)
                 {

@@ -28,4 +28,7 @@
     <string name="edit">Edit activity</string>
     <string name="delete">Delete activity</string>
     <string name="txt_welcome">Log in to see your bucketlist!</string>
+    <string name="edit_item_done">Save edited item</string>
+    <string name="amount_done">Amount of bucketlist items done: </string>
+    <string name="total_amount_bucketlist">Total amount of bucketlist items: </string>
 </resources>

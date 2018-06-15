@@ -23,8 +23,12 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class AddingItemActivity extends FragmentActivity implements OnConnectionFailedListener {
 
@@ -61,23 +65,6 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference("Users").child(curUserId).child("bucketlist");
 
-        final EditText inputName = findViewById(R.id.input_name);
-        final EditText inputDescription = findViewById(R.id.input_description);
-
-        Button btnAddToList = findViewById(R.id.btn_add_item_to_list);
-
-        btnAddToList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            bucketListItem newItem = new bucketListItem();
-            newItem.setName(inputName.getText().toString());
-            newItem.setDescription(inputDescription.getText().toString());
-            newItem.setLocation(placeId);
-            userRef.push().setValue(newItem);
-            startActivity(new Intent(AddingItemActivity.this, bucketlistActivity.class));
-            }
-        });
-
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
@@ -93,6 +80,48 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
                 Toast.makeText(AddingItemActivity.this, "Location search went wrong, try again", Toast.LENGTH_SHORT).show();
             }
         });
+
+        Intent intent = getIntent();
+
+        final EditText inputName = findViewById(R.id.input_name);
+        final EditText inputDescription = findViewById(R.id.input_description);
+        Button btnAddToList = findViewById(R.id.btn_add_item_to_list);
+        final bucketListItem newItem = new bucketListItem();
+
+        if(intent.getSerializableExtra("CLICKED_ITEM")!= null){
+            btnAddToList.setText("Save edited item");
+            bucketListItem clickedItem = (bucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
+            final String clickedItemId = intent.getStringExtra("ITEMID");
+            inputName.setText(clickedItem.getName());
+            inputDescription.setText(clickedItem.getDescription());
+
+            btnAddToList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    newItem.setName(inputName.getText().toString());
+                    newItem.setDescription(inputDescription.getText().toString());
+                    newItem.setLocation(placeId);
+                    userRef.child(clickedItemId).child("name").setValue(newItem.getName());
+                    userRef.child(clickedItemId).child("description").setValue(newItem.getDescription());
+                    userRef.child(clickedItemId).child("location").setValue(newItem.getLocation());
+                    Intent intent = new Intent(AddingItemActivity.this, bucketListItemActivity.class);
+                    intent.putExtra("CLICKED_ITEM",newItem);
+                    startActivity(intent);
+                }
+            });
+        }
+        else {
+            btnAddToList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    newItem.setName(inputName.getText().toString());
+                    newItem.setDescription(inputDescription.getText().toString());
+                    newItem.setLocation(placeId);
+                    userRef.push().setValue(newItem);
+                    startActivity(new Intent(AddingItemActivity.this, bucketlistActivity.class));
+                }
+            });
+        }
     }
 
     @Override

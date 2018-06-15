@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -31,5 +32,10 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, SearchActivity.class));
             }
         });
+
+        TextView profileName = (TextView) findViewById(R.id.txt_profile_name);
+
+        profileName.setText("User's Name");
+
     }
 }
