@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
@@ -54,7 +56,6 @@ public class bucketListItemActivity extends AppCompatActivity {
         final DatabaseReference userRef = database.getReference("Users").child(curUserId).child("bucketlist");
 
         // TODO: ability to add a photo to the activity
-        // TODO: ability to edit item
 
         Intent intent = getIntent();
         clickedItem = (bucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
@@ -109,7 +110,6 @@ public class bucketListItemActivity extends AppCompatActivity {
                     builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Log.d("Dialog stuff", "onClick:  cancel");
                         }
                     });
                     AlertDialog dialog = builder.create();
@@ -146,6 +146,18 @@ public class bucketListItemActivity extends AppCompatActivity {
                         Toast.makeText(bucketListItemActivity.this, "Database error, try again!", Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+
+        ImageButton locationItem = (ImageButton) findViewById(R.id.location_icon);
+        locationItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Go to the location on google maps
+                Intent intent1 = new Intent(bucketListItemActivity.this, ItemLocationMapsActivity.class);
+                intent1.putExtra("LOCATION_ID", clickedItem.getLocation());
+                startActivity(intent1);
             }
         });
 

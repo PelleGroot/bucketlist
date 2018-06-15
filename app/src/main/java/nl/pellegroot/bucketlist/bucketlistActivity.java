@@ -50,6 +50,11 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
                     bucketItem.setName(postSnapshot.getValue(bucketListItem.class).getName());
                     bucketItem.setActivityDone(postSnapshot.getValue(bucketListItem.class).getActivityDone());
                     bucketItem.setItemId(postSnapshot.getValue(bucketListItem.class).getItemId());
+                    bucketItem.setLocation(postSnapshot.getValue(bucketListItem.class).getLocation());
+                    bucketItem.setDescription(postSnapshot.getValue(bucketListItem.class).getDescription());
+                    bucketItem.setRating(postSnapshot.getValue(bucketListItem.class).getRating());
+                    bucketItem.setPrice(postSnapshot.getValue(bucketListItem.class).getPrice());
+                    bucketItem.setPhoto(postSnapshot.getValue(bucketListItem.class).getPhoto());
                     bucketList.add(bucketItem);
                 }
 

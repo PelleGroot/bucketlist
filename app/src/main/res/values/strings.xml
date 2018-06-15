@@ -32,4 +32,5 @@
     <string name="amount_done">Amount of bucketlist items done: </string>
     <string name="total_amount_bucketlist">Total amount of bucketlist items: </string>
     <string name="sign_out">Sign out</string>
+    <string name="title_activity_item_location_maps">Map</string>
 </resources>
