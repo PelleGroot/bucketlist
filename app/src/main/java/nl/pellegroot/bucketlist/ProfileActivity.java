@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class ProfileActivity extends AppCompatActivity {
 
     @Override
@@ -18,6 +20,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Button btnBucketlist = findViewById(R.id.btn_bucketlist);
         Button btnSearch = findViewById(R.id.btn_search);
+        Button btnSignOut = findViewById(R.id.btn_sign_out);
 
         btnBucketlist.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -37,5 +40,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         profileName.setText("User's Name");
 
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+            }
+        });
     }
 }

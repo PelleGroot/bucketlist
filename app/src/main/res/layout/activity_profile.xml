@@ -8,37 +8,37 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
                 android:layout_weight="1"
                 android:backgroundTint="@color/common_google_signin_btn_text_light_focused"
+                android:fontFamily="@font/roboto"
                 android:text="@string/profile" />
 
             <Button
                 android:id="@+id/btn_bucketlist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
                 android:layout_weight="1"
+                android:fontFamily="@font/roboto"
                 android:text="@string/bucketlist" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
                 android:layout_weight="1"
+                android:fontFamily="@font/roboto"
                 android:text="@string/search" />
 
         </LinearLayout>
@@ -58,7 +58,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
@@ -84,7 +84,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
@@ -106,7 +106,20 @@
                 android:text="5"
                 android:textAlignment="textEnd"
                 android:textSize="20sp" />
+
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_sign_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="10dp"
+        android:background="@color/fui_bgEmail"
+        android:text="@string/sign_out"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
 </android.support.design.widget.CoordinatorLayout>

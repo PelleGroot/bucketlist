@@ -31,4 +31,5 @@
     <string name="edit_item_done">Save edited item</string>
     <string name="amount_done">Amount of bucketlist items done: </string>
     <string name="total_amount_bucketlist">Total amount of bucketlist items: </string>
+    <string name="sign_out">Sign out</string>
 </resources>
