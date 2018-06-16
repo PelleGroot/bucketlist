@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBufferResponse;
+import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,7 +25,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class ItemLocationMapsActivity extends FragmentActivity implements OnMapReadyCallback, OnConnectionFailedListener{
-    protected GeoDataClient mGeoDataClient;
+    public GeoDataClient mGeoDataClient;
+    protected PlaceDetectionClient mPlaceDetectionClient;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     public Place myPlace;
@@ -42,6 +44,9 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
 
         // Construct a GeoDataClient.
         mGeoDataClient = Places.getGeoDataClient(this, null);
+
+        // Construct a PlaceDetectionClient.
+        mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
 
         mGoogleApiClient = new GoogleApiClient
                 .Builder(this)
@@ -65,6 +70,10 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
                     placeLatLng = (LatLng) myPlace.getLatLng();
                     placeName = (String) myPlace.getName();
                     places.release();
+
+                    // Add a marker in Sydney and move the camera
+                    mMap.addMarker(new MarkerOptions().position(placeLatLng).title(placeName));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng));
                 } else {
                     Log.e("Maps", "Place not found.");
                 }
@@ -85,11 +94,6 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        Log.d("stuff", "onMapReady: " + placeLatLng);
-        // Add a marker in Sydney and move the camera
-        mMap.addMarker(new MarkerOptions().position(placeLatLng).title(placeName));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng));
     }
 
     @Override
