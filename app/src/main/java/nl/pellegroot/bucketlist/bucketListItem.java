@@ -1,14 +1,5 @@
 package nl.pellegroot.bucketlist;
 
-import android.location.Location;
-import android.media.Image;
-
-import com.google.android.gms.location.places.Place;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.Serializable;
 
 public class bucketListItem implements Serializable{
@@ -16,7 +7,7 @@ public class bucketListItem implements Serializable{
     public String name;
     public String description;
     public String location;
-    public Image photo;
+    public String photoUri;
     public Boolean activityDone;
     public int rating;
     public float price;
@@ -26,7 +17,7 @@ public class bucketListItem implements Serializable{
         this.name = "Activity";
         this.description = "description";
 //        this.location = null;
-        this.photo = null;
+        this.photoUri = null;
         this.activityDone = false;
         this.rating = 0;
         this.price = 0;
@@ -64,12 +55,12 @@ public class bucketListItem implements Serializable{
         this.location = location;
     }
 
-    public Image getPhoto() {
-        return photo;
+    public String getPhoto() {
+        return photoUri;
     }
 
-    public void setPhoto(Image photo) {
-        this.photo = photo;
+    public void setPhoto(String photoUri) {
+        this.photoUri = photoUri;
     }
 
     public Boolean getActivityDone() {

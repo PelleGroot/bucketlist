@@ -57,7 +57,6 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
 
         Intent intent = getIntent();
         String placeId = (String) intent.getStringExtra("LOCATION_ID");
-        Log.d("stuff", "onCreate in ItemLocation: " + placeId);
 
         mGeoDataClient.getPlaceById(placeId).addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
             @Override
@@ -79,7 +78,6 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
                 }
             }
         });
-        Log.d("stuff", "onCreate: " + placeLatLng);
     }
 
     /**
@@ -94,6 +92,7 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
     }
 
     @Override

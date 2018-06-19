@@ -55,6 +55,7 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
                     bucketItem.setRating(postSnapshot.getValue(bucketListItem.class).getRating());
                     bucketItem.setPrice(postSnapshot.getValue(bucketListItem.class).getPrice());
                     bucketItem.setPhoto(postSnapshot.getValue(bucketListItem.class).getPhoto());
+                    Log.d("stuff in mainactivity", "onDataChange: " + bucketItem.getPhoto());
                     bucketList.add(bucketItem);
                 }
 
