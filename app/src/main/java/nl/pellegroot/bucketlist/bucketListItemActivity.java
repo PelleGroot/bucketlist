@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -139,7 +140,8 @@ public class bucketListItemActivity extends AppCompatActivity {
         itemDone.setChecked(clickedItem.getActivityDone());
 
         if(clickedItem.getPhoto() != null){
-            setPhotoInActivity(Uri.parse(clickedItem.getPhoto()));
+            Uri photoUri = Uri.parse(clickedItem.getPhoto());
+            setPhotoInActivity(photoUri);
         }
 
         itemDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -177,7 +179,6 @@ public class bucketListItemActivity extends AppCompatActivity {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                photoUrl = null;
                 choosePhoto();
             }
         });

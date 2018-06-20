@@ -7,17 +7,18 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.Response;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.android.gms.common.util.CrashUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class searchRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class searchRequest implements Response.Listener<JSONArray>, Response.ErrorListener {
     public Context context;
     public Callback callback;
 
@@ -36,18 +37,15 @@ public class searchRequest implements Response.Listener<JSONObject>, Response.Er
     }
 
     @Override
-    public void onResponse(JSONObject response) {
-        JSONArray jsonArray;
+    public void onResponse(JSONArray response) {
         ArrayList<bucketListItem> activities = new ArrayList<>();
         Log.d("stuff", "onResponse: inside the onresponse of the request");
         Log.d("resultOfReq", "onResponse: " + response);
 
         try{
-            jsonArray = response.getJSONArray("");
-
-            for(int i=0; i<jsonArray.length(); i++){
+            for(int i=0; i<response.length(); i++){
                 bucketListItem newBucketlistItem = new bucketListItem();
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                JSONObject jsonObject = response.getJSONObject(i);
 
                 newBucketlistItem.setName(jsonObject.getString("name"));
                 newBucketlistItem.setDescription(jsonObject.getString("category"));
@@ -71,14 +69,12 @@ public class searchRequest implements Response.Listener<JSONObject>, Response.Er
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
-//        String url = String.format("http://tour-pedia.org/api/getPlaces?category=%s&location=%s", category, location);
-        String url = String.format("http://tour-pedia.org/api/getPlacesByArea?S=%2.3f&N=%2.3f&W=4&E=5&category=%s",lat, lng, category);
+        String url = String.format(Locale.US, "http://tour-pedia.org/api/getPlacesByArea?S=%2.3f&N=%2.3f&W=%1.0f&E=%1.0f&category=%s",lat,(lat + 0.3), lng, (lng+1), category);
 
         Log.d("stuff", "getActivity: " + url);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, this, this);
-        queue.add(jsonObjectRequest);
-
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, this, this);
+        queue.add(jsonArrayRequest);
     }
 }
 

@@ -15,8 +15,6 @@ public class bucketListItem implements Serializable, Parcelable{
     public String lat;
     public String lng;
 
-
-
     public bucketListItem() {
         this.name = "Activity";
         this.description = "description";
@@ -33,7 +31,7 @@ public class bucketListItem implements Serializable, Parcelable{
         this.description = parcel.readString();
         this.location = parcel.readString();
         this.photoUri = parcel.readString();
-        this.activityDone = null;
+        this.activityDone = false;
         this.rating = 0;
         this.lat = parcel.readString();
         this.lng = parcel.readString();
@@ -113,7 +111,6 @@ public class bucketListItem implements Serializable, Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(description);
-        dest.writeString(location);
         dest.writeString(location);
         dest.writeString(photoUri);
         dest.writeString(lat);

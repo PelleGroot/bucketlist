@@ -23,11 +23,12 @@ import java.net.Inet4Address;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements searchRequest.Callback {
-    public Long LOCATION_REFRESH_TIME = 600L;
-    public Float LOCATION_REFRESH_DISTANCE = 100.0F;
+    public Long LOCATION_REFRESH_TIME = 1L;
+    public Float LOCATION_REFRESH_DISTANCE = 10.0F;
     public double lat;
     public double lng;
     public String category;
+    public LocationManager mLocationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +92,12 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
                             1);
                 }
 
-                LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
-                        LOCATION_REFRESH_DISTANCE, mLocationListener);
+//                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
 
-                mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, mLocationListener, );
+                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
+//                mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, mLocationListener, );
 
                 Log.d("stuff", "onClick: before the request");
             }
@@ -114,6 +115,7 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
     @Override
     public void gotActivitiesError(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Log.d("stuff", "gotActivitiesError: " + message);
     }
 
     private final LocationListener mLocationListener = new LocationListener() {
@@ -122,6 +124,7 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
             Log.d("stuff", "onLocationChanged: Check location lat-long");
             lat = location.getLatitude();
             lng = location.getLongitude();
+            mLocationManager.removeUpdates(this);
 
             searchRequest searchReq = new searchRequest(SearchActivity.this);
             searchReq.getActivity(SearchActivity.this, lat, lng, category);
