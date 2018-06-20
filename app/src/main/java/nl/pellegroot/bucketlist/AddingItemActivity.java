@@ -33,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.Serializable;
+
 public class AddingItemActivity extends FragmentActivity implements OnConnectionFailedListener {
 
     protected PlaceDetectionClient mPlaceDetectionClient;
@@ -108,7 +110,7 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
                     userRef.child(clickedItemId).child("description").setValue(newItem.getDescription());
                     userRef.child(clickedItemId).child("location").setValue(newItem.getLocation());
                     Intent intent = new Intent(AddingItemActivity.this, bucketListItemActivity.class);
-                    intent.putExtra("CLICKED_ITEM",newItem);
+                    intent.putExtra("CLICKED_ITEM",(Serializable) newItem);
                     startActivity(intent);
                 }
             });

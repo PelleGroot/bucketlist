@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class SearchResultActivity extends AppCompatActivity {
 
     @Override
@@ -23,5 +25,8 @@ public class SearchResultActivity extends AppCompatActivity {
                 startActivity(new Intent(SearchResultActivity.this, SearchActivity.class));
             }
         });
+
+        Intent intent = getIntent();
+        ArrayList<bucketListItem> activities = intent.getParcelableArrayListExtra("ACTIVITIES");
     }
 }

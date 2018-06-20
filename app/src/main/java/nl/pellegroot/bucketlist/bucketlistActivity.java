@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -49,13 +50,10 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
                     bucketListItem bucketItem = new bucketListItem();
                     bucketItem.setName(postSnapshot.getValue(bucketListItem.class).getName());
                     bucketItem.setActivityDone(postSnapshot.getValue(bucketListItem.class).getActivityDone());
-                    bucketItem.setItemId(postSnapshot.getValue(bucketListItem.class).getItemId());
                     bucketItem.setLocation(postSnapshot.getValue(bucketListItem.class).getLocation());
                     bucketItem.setDescription(postSnapshot.getValue(bucketListItem.class).getDescription());
                     bucketItem.setRating(postSnapshot.getValue(bucketListItem.class).getRating());
-                    bucketItem.setPrice(postSnapshot.getValue(bucketListItem.class).getPrice());
                     bucketItem.setPhoto(postSnapshot.getValue(bucketListItem.class).getPhoto());
-                    Log.d("stuff in mainactivity", "onDataChange: " + bucketItem.getPhoto());
                     bucketList.add(bucketItem);
                 }
 
@@ -112,7 +110,7 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             bucketListItem clickedItem = (bucketListItem) adapterView.getItemAtPosition(i);
             Intent intent = new Intent(bucketlistActivity.this, bucketListItemActivity.class);
-            intent.putExtra("CLICKED_ITEM", clickedItem);
+            intent.putExtra("CLICKED_ITEM", (Serializable) clickedItem);
             startActivity(intent);
         }
     }

@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +36,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.Serializable;
+
 public class bucketListItemActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -63,8 +64,6 @@ public class bucketListItemActivity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference("Users").child(curUserId).child("bucketlist");
-
-        // TODO: ability to add a photo to the activity
 
         storage = FirebaseStorage.getInstance();
         storeRef = storage.getReference();
@@ -95,7 +94,7 @@ public class bucketListItemActivity extends AppCompatActivity {
                 if(menuItem.getItemId()==R.id.menu_edit)
                 {
                     Intent intent = new Intent(bucketListItemActivity.this, AddingItemActivity.class);
-                    intent.putExtra("CLICKED_ITEM", clickedItem);
+                    intent.putExtra("CLICKED_ITEM", (Serializable)  clickedItem);
                     intent.putExtra("ITEMID", clickedItemId);
                     startActivity(intent);
                 }
