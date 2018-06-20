@@ -54,6 +54,8 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
                     bucketItem.setDescription(postSnapshot.getValue(bucketListItem.class).getDescription());
                     bucketItem.setRating(postSnapshot.getValue(bucketListItem.class).getRating());
                     bucketItem.setPhoto(postSnapshot.getValue(bucketListItem.class).getPhoto());
+                    bucketItem.setLng(postSnapshot.getValue(bucketListItem.class).getLng());
+                    bucketItem.setLat(postSnapshot.getValue(bucketListItem.class).getLat());
                     bucketList.add(bucketItem);
                 }
 

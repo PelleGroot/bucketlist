@@ -23,8 +23,6 @@ import java.net.Inet4Address;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements searchRequest.Callback {
-    public Long LOCATION_REFRESH_TIME = 1L;
-    public Float LOCATION_REFRESH_DISTANCE = 10.0F;
     public double lat;
     public double lng;
     public String category;
@@ -34,9 +32,6 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-        // TODO: Pass the filled in item to the API, on response, pass the data to the next activity(?)
-        // TODO: On error, create toast message to check the fields
 
         Button btnBucketlist = findViewById(R.id.btn_bucketlist);
         Button btnProfile = findViewById(R.id.btn_profile);
@@ -78,8 +73,6 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
             @Override
             public void onClick(View view) {
 
-                Log.d("stuff", "onClick: inside the search screen");
-
                 category = (String) spinCategories.getSelectedItem();
 
                 if (ContextCompat.checkSelfPermission(SearchActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -93,20 +86,14 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
                 }
 
                 mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-//                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
-
                 mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
-//                mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, mLocationListener, );
 
-                Log.d("stuff", "onClick: before the request");
             }
         });
     }
 
     @Override
     public void gotActivities(ArrayList<bucketListItem> activities){
-        Log.d("stuff", "gotActivities: JSONreq got a response");
         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
         intent.putExtra("ACTIVITIES", activities);
         startActivity(intent);
@@ -115,13 +102,11 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
     @Override
     public void gotActivitiesError(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        Log.d("stuff", "gotActivitiesError: " + message);
     }
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            Log.d("stuff", "onLocationChanged: Check location lat-long");
             lat = location.getLatitude();
             lng = location.getLongitude();
             mLocationManager.removeUpdates(this);

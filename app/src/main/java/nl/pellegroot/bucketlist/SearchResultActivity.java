@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SearchResultActivity extends AppCompatActivity {
@@ -28,5 +32,21 @@ public class SearchResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         ArrayList<bucketListItem> activities = intent.getParcelableArrayListExtra("ACTIVITIES");
+
+        ListView searchResultList = (ListView) findViewById(R.id.lv_search_history);
+        if(activities != null) {
+            searchResultList.setAdapter(new searchResultAdapter(SearchResultActivity.this, R.layout.search_adapter_item, activities));
+            searchResultList.setOnItemClickListener(new ListViewResultItemClicked());
+        }
+    }
+
+    private class ListViewResultItemClicked implements AdapterView.OnItemClickListener{
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            bucketListItem clickedItem = (bucketListItem) adapterView.getItemAtPosition(i);
+            Intent intent = new Intent(SearchResultActivity.this, ResultItemActivity.class);
+            intent.putExtra("CLICKED_ITEM", (Serializable) clickedItem);
+            startActivity(intent);
+        }
     }
 }

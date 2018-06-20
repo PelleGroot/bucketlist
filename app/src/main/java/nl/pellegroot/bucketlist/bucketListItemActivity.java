@@ -167,11 +167,21 @@ public class bucketListItemActivity extends AppCompatActivity {
         locationItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // Go to the location on google maps
-                Intent intent1 = new Intent(bucketListItemActivity.this, ItemLocationMapsActivity.class);
-                intent1.putExtra("LOCATION_ID", clickedItem.getLocation());
-                startActivity(intent1);
+                if(clickedItem.getLocation() != null) {
+                    // Go to the location on google maps
+                    Intent intent1 = new Intent(bucketListItemActivity.this, ItemLocationMapsActivity.class);
+                    intent1.putExtra("LOCATION_ID", clickedItem.getLocation());
+                    startActivity(intent1);
+                }
+                else if(clickedItem.getLat() != null){
+                    Intent intent1 = new Intent(bucketListItemActivity.this, ItemLocationMapsActivity.class);
+                    intent1.putExtra("LOCATION_LAT", clickedItem.getLat());
+                    intent1.putExtra("LOCATION_LNG", clickedItem.getLng());
+                    startActivity(intent1);
+                }
+                else{
+                    Toast.makeText(bucketListItemActivity.this, "No location found", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

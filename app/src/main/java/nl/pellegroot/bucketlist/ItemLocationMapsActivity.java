@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.common.util.CrashUtils;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBufferResponse;
@@ -32,6 +33,7 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
     public Place myPlace;
     public LatLng placeLatLng;
     public String placeName;
+    public Boolean setMarker = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,28 +58,42 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
                 .build();
 
         Intent intent = getIntent();
-        String placeId = (String) intent.getStringExtra("LOCATION_ID");
+        if(intent.getStringExtra("LOCATION_ID") != null) {
+            String placeId = (String) intent.getStringExtra("LOCATION_ID");
 
-        mGeoDataClient.getPlaceById(placeId).addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
-            @Override
-            public void onComplete(@NonNull Task<PlaceBufferResponse> task) {
-                if (task.isSuccessful()) {
-                    PlaceBufferResponse places = task.getResult();
-                    myPlace = places.get(0);
-                    Log.i("Maps", "Place found: " + myPlace.getName());
-                    Log.d("stuff", "onComplete: " + myPlace.getLatLng());
-                    placeLatLng = (LatLng) myPlace.getLatLng();
-                    placeName = (String) myPlace.getName();
-                    places.release();
+            mGeoDataClient.getPlaceById(placeId).addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
+                @Override
+                public void onComplete(@NonNull Task<PlaceBufferResponse> task) {
+                    if (task.isSuccessful()) {
+                        PlaceBufferResponse places = task.getResult();
+                        myPlace = places.get(0);
+                        Log.i("Maps", "Place found: " + myPlace.getName());
+                        Log.d("stuff", "onComplete: " + myPlace.getLatLng());
+                        placeLatLng = (LatLng) myPlace.getLatLng();
+                        Log.d("stuff", "onComplete: " + placeLatLng);
+                        placeName = (String) myPlace.getName();
+                        places.release();
 
-                    // Add a marker in Sydney and move the camera
-                    mMap.addMarker(new MarkerOptions().position(placeLatLng).title(placeName));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng));
-                } else {
-                    Log.e("Maps", "Place not found.");
+                        mMap.addMarker(new MarkerOptions().position(placeLatLng).title(placeName));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng));
+                    } else {
+                        Log.e("Maps", "Place not found.");
+                    }
                 }
-            }
-        });
+            });
+        }
+        else if(intent.getStringExtra("LOCATION_LAT") != null){
+            double lat = Double.parseDouble(intent.getStringExtra("LOCATION_LAT"));
+            double lng = Double.parseDouble(intent.getStringExtra("LOCATION_LNG"));
+            placeName = intent.getStringExtra("LOCATION_NAME");
+
+            Log.d("stuff", "onCreate: " + lat + "," + lng);
+            placeLatLng = new LatLng(lat, lng);
+            setMarker = true;
+        }
+        else{
+            Toast.makeText(this, "No location found", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -92,7 +108,14 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+//        mMap.addMarker(new MarkerOptions().position(placeLatLng).title(placeName));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+
+        if(setMarker){
+            mMap.addMarker(new MarkerOptions().position(placeLatLng).title(placeName));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng));
+        }
     }
 
     @Override

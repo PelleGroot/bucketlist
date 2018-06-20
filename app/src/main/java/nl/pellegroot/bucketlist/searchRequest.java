@@ -14,7 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -39,8 +38,6 @@ public class searchRequest implements Response.Listener<JSONArray>, Response.Err
     @Override
     public void onResponse(JSONArray response) {
         ArrayList<bucketListItem> activities = new ArrayList<>();
-        Log.d("stuff", "onResponse: inside the onresponse of the request");
-        Log.d("resultOfReq", "onResponse: " + response);
 
         try{
             for(int i=0; i<response.length(); i++){
@@ -52,7 +49,6 @@ public class searchRequest implements Response.Listener<JSONArray>, Response.Err
                 newBucketlistItem.setLat(jsonObject.getString("lat"));
                 newBucketlistItem.setLng(jsonObject.getString("lng"));
 
-                Log.d("stuff", "onResponse of searchrequest: ");
                 activities.add(newBucketlistItem);
             }
         } catch(JSONException e){
@@ -65,13 +61,9 @@ public class searchRequest implements Response.Listener<JSONArray>, Response.Err
     public void getActivity(Callback callbackActivity, double lat, double lng, String category) {
         callback = callbackActivity;
 
-        Log.d("stuff", "getActivity inside creating the request: ");
-
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        String url = String.format(Locale.US, "http://tour-pedia.org/api/getPlacesByArea?S=%2.3f&N=%2.3f&W=%1.0f&E=%1.0f&category=%s",lat,(lat + 0.3), lng, (lng+1), category);
-
-        Log.d("stuff", "getActivity: " + url);
+        String url = String.format(Locale.US, "http://tour-pedia.org/api/getPlacesByArea?S=%2.3f&N=%2.3f&W=%1.2f&E=%1.2f&category=%s",lat,(lat + 0.01), lng, (lng+0.01), category);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, this, this);
         queue.add(jsonArrayRequest);
