@@ -30,7 +30,9 @@ public class ProfileActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userRef = database.getReference("Users").child(curUserId);
 
-        // TODO: create an edit profile option, to add name, picture and stuff
+        // TODO: add picture
+        // TODO: add query to find how many items are on the list
+        // TODO: add query to find how many items are checked on the list
 
         Button btnBucketlist = findViewById(R.id.btn_bucketlist);
         Button btnSearch = findViewById(R.id.btn_search);

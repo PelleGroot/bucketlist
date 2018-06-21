@@ -71,5 +71,6 @@ public class ResultItemActivity extends AppCompatActivity {
             }
         });
 
+        //TODO: Share functionality
     }
 }

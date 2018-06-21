@@ -85,6 +85,7 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
                             1);
                 }
 
+                // TODO: add loading screen activity or smth
                 mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
                 mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
 
