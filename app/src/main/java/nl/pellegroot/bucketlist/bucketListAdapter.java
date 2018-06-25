@@ -54,6 +54,7 @@ public class bucketListAdapter extends ArrayAdapter{
         itemName.setText(buckItemName);
         itemDone.setChecked(buckItemDone);
 
+        // set the connection to the DB
         mAuth = FirebaseAuth.getInstance();
         curUser = mAuth.getCurrentUser();
         curUserId = curUser.getUid();
@@ -61,6 +62,7 @@ public class bucketListAdapter extends ArrayAdapter{
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference("Users").child(curUserId).child("bucketlist");
 
+        // create a query to get right DB item for the onclick listener
         final Query clickedItemFromDB = userRef.orderByChild("name").equalTo(Item.getName());
 
         itemDone.setOnClickListener(new View.OnClickListener() {

@@ -63,6 +63,7 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
                 .enableAutoManage(this, this)
                 .build();
 
+        // Initiate Firebase database connection
         mAuth = FirebaseAuth.getInstance();
         curUser = mAuth.getCurrentUser();
         curUserId = curUser.getUid();
@@ -70,6 +71,7 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference("Users").child(curUserId).child("bucketlist");
 
+        // get the autocomplete location field
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
@@ -86,29 +88,44 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
             }
         });
 
+        // get the intent
         Intent intent = getIntent();
 
+        // set the buttons and fields
         final EditText inputName = findViewById(R.id.input_name);
         final EditText inputDescription = findViewById(R.id.input_description);
         Button btnAddToList = findViewById(R.id.btn_add_item_to_list);
         final bucketListItem newItem = new bucketListItem();
 
+        // get the clicked item from the intent if there is one
         if(intent.getSerializableExtra("CLICKED_ITEM")!= null){
+
+            // set safe button to a different text
             btnAddToList.setText("Save edited item");
+
+            // set the fields to show entries from the retrieved item
             bucketListItem clickedItem = (bucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
             final String clickedItemId = intent.getStringExtra("ITEMID");
             inputName.setText(clickedItem.getName());
             inputDescription.setText(clickedItem.getDescription());
 
+            // set the items in the database to the edited fields
             btnAddToList.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     newItem.setName(inputName.getText().toString());
                     newItem.setDescription(inputDescription.getText().toString());
-                    newItem.setLocation(placeId);
+
                     userRef.child(clickedItemId).child("name").setValue(newItem.getName());
                     userRef.child(clickedItemId).child("description").setValue(newItem.getDescription());
-                    userRef.child(clickedItemId).child("location").setValue(newItem.getLocation());
+
+                    // if the location is nog changed, it will not change the location in the database to null
+                    if(placeId != null){
+                        newItem.setLocation(placeId);
+                        userRef.child(clickedItemId).child("location").setValue(newItem.getLocation());
+                    }
+
+                    // start new activity with the new clicked item
                     Intent intent = new Intent(AddingItemActivity.this, bucketListItemActivity.class);
                     intent.putExtra("CLICKED_ITEM",(Serializable) newItem);
                     startActivity(intent);
@@ -116,12 +133,15 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
             });
         }
         else {
+
+            // if there is no item in the intent, it will start a empty activity to add a new item to the DB
             btnAddToList.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     newItem.setName(inputName.getText().toString());
                     newItem.setDescription(inputDescription.getText().toString());
                     newItem.setLocation(placeId);
+
                     userRef.push().setValue(newItem);
                     startActivity(new Intent(AddingItemActivity.this, bucketlistActivity.class));
                 }

@@ -27,8 +27,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private EditText confirmPasswordField;
     private Button createAccountButton;
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference userRef;
+        private DatabaseReference userRef;
     private FirebaseDatabase database;
     private String curUserId;
 
@@ -37,19 +36,18 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        Intent intent = getIntent();
-
+        // get connection to the database
         mAuth = FirebaseAuth.getInstance();
-
         database = FirebaseDatabase.getInstance();
         userRef = database.getReference("Users");
 
+        //set the buttons and fields
         emailaddressField = (EditText) findViewById(R.id.ca_email);
         passwordField = (EditText) findViewById(R.id.ca_password);
         confirmPasswordField = (EditText) findViewById(R.id.ca_confirm_password);
-
         createAccountButton = (Button) findViewById(R.id.ca_create_account);
 
+        // set on click lilstener on the create account button
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,14 +57,19 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     private void createAccount(){
+
+        // get all the needed information from the user
         String emailAddress = emailaddressField.getText().toString();
         String password = passwordField.getText().toString();
         String confirmPassword = confirmPasswordField.getText().toString();
 
+        // check if all the fields are filled in
         if (TextUtils.isEmpty(emailAddress) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)){
             Toast.makeText(CreateAccountActivity.this, "Please fill in all the fields", Toast.LENGTH_LONG).show();
         }
         else{
+
+            // check if the user gave two same passwords
             if(!password.equals(confirmPassword)){
                 Toast.makeText(CreateAccountActivity.this, "Passwords don't match", Toast.LENGTH_LONG).show();
             }else{
@@ -77,6 +80,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                             FirebaseAuthException e = (FirebaseAuthException)task.getException();
                             Toast.makeText(CreateAccountActivity.this, "Something went wrong: " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
+
+                        // if task is successful, create account and log in
                         if(task.isSuccessful()){
                             FirebaseUser User = mAuth.getCurrentUser();
                             curUserId = User.getUid();

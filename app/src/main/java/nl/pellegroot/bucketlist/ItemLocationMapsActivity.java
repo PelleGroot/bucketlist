@@ -39,6 +39,7 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_location_maps);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -50,6 +51,7 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
         // Construct a PlaceDetectionClient.
         mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
 
+        // construct the API client from google
         mGoogleApiClient = new GoogleApiClient
                 .Builder(this)
                 .addApi(Places.GEO_DATA_API)
@@ -58,19 +60,19 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
                 .build();
 
         Intent intent = getIntent();
+
+        // get the location ID from the intent
         if(intent.getStringExtra("LOCATION_ID") != null) {
             String placeId = (String) intent.getStringExtra("LOCATION_ID");
 
+            // set the map to the location of the locationID
             mGeoDataClient.getPlaceById(placeId).addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
                 @Override
                 public void onComplete(@NonNull Task<PlaceBufferResponse> task) {
                     if (task.isSuccessful()) {
                         PlaceBufferResponse places = task.getResult();
                         myPlace = places.get(0);
-                        Log.i("Maps", "Place found: " + myPlace.getName());
-                        Log.d("stuff", "onComplete: " + myPlace.getLatLng());
                         placeLatLng = (LatLng) myPlace.getLatLng();
-                        Log.d("stuff", "onComplete: " + placeLatLng);
                         placeName = (String) myPlace.getName();
                         places.release();
 
@@ -82,13 +84,15 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
                 }
             });
         }
+
+        // if the intent has a lat and lng, we use that to detemine the location of the item
         else if(intent.getStringExtra("LOCATION_LAT") != null){
             double lat = Double.parseDouble(intent.getStringExtra("LOCATION_LAT"));
             double lng = Double.parseDouble(intent.getStringExtra("LOCATION_LNG"));
             placeName = intent.getStringExtra("LOCATION_NAME");
-
-            Log.d("stuff", "onCreate: " + lat + "," + lng);
             placeLatLng = new LatLng(lat, lng);
+
+            // having this parameter is to make sure that the marker is set that the camera moves to the location only when the map is ready
             setMarker = true;
         }
         else{
@@ -108,10 +112,9 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-//        mMap.addMarker(new MarkerOptions().position(placeLatLng).title(placeName));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
 
+        // if the marker is set, move the map to the right place
         if(setMarker){
             mMap.addMarker(new MarkerOptions().position(placeLatLng).title(placeName));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng));

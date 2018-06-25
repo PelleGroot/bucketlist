@@ -35,6 +35,9 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
     @Override
     protected void onResume() {
         super.onResume();
+
+        // doing this in the onResume instead of the onCreate to make sure that the list doesn't append when going back from another activity
+        // get a connection to the firebase DB
         mAuth = FirebaseAuth.getInstance();
         curUser = mAuth.getCurrentUser();
         curUserId = curUser.getUid();
@@ -42,11 +45,16 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userRef = database.getReference("Users").child(curUserId).child("bucketlist");
 
+        // get the data from the database
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // empty the bucketlist so we don't have duplicates
                 bucketList.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+
+                    // get the bucketlist items from the database
                     bucketListItem bucketItem = new bucketListItem();
                     bucketItem.setName(postSnapshot.getValue(bucketListItem.class).getName());
                     bucketItem.setActivityDone(postSnapshot.getValue(bucketListItem.class).getActivityDone());
@@ -59,6 +67,7 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
                     bucketList.add(bucketItem);
                 }
 
+                // set the adapter to display the bucketlist items
                 ListView Listview = findViewById(R.id.lv_bucketlist);
                 if(bucketList!= null) {
                     Listview.setAdapter(new bucketListAdapter(bucketlistActivity.this, R.layout.activity_bucket_list_item, bucketList));
@@ -78,7 +87,7 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bucketlist);
 
-        // TODO: find out if I can easily can create a menu class
+        // set the menu
         Button btnProfile = findViewById(R.id.btn_profile);
         Button btnSearch = findViewById(R.id.btn_search);
 

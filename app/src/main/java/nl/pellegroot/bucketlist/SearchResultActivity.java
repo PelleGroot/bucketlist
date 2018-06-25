@@ -19,8 +19,6 @@ public class SearchResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
 
-        // TODO: get the searched for items in here using an adapter
-
         Button btnBackToSearch = findViewById(R.id.btn_back_to_search);
 
         btnBackToSearch.setOnClickListener(new View.OnClickListener() {

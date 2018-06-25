@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -59,6 +60,7 @@ public class bucketListItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bucket_list_item);
 
+        // initiate the firebase database connection
         mAuth = FirebaseAuth.getInstance();
         curUser = mAuth.getCurrentUser();
         curUserId = curUser.getUid();
@@ -66,12 +68,16 @@ public class bucketListItemActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference("Users").child(curUserId).child("bucketlist");
 
+        // initiate connection to firebase storage
         storage = FirebaseStorage.getInstance();
         storeRef = storage.getReference();
 
+        // get the item that was clicked from the intent
         Intent intent = getIntent();
         clickedItem = (bucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
         clickedItemFromDB = userRef.orderByChild("name").equalTo(clickedItem.getName());
+
+        // get the database ID for the item
         clickedItemFromDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,6 +92,7 @@ public class bucketListItemActivity extends AppCompatActivity {
             }
         });
 
+        // create a menu for the buttons 'edit' and 'delete'
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu);
 
@@ -94,6 +101,7 @@ public class bucketListItemActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if(menuItem.getItemId()==R.id.menu_edit)
                 {
+                    // puts the items database ID and the item itself in the intent to start a edit item activity
                     Intent intent = new Intent(bucketListItemActivity.this, AddingItemActivity.class);
                     intent.putExtra("CLICKED_ITEM", (Serializable)  clickedItem);
                     intent.putExtra("ITEMID", clickedItemId);
@@ -101,6 +109,7 @@ public class bucketListItemActivity extends AppCompatActivity {
                 }
                 else if(menuItem.getItemId()== R.id.menu_delete)
                 {
+                    // create a confirmation message before actually deleting the item
                     final Context context = toolbar.getContext();
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setCancelable(true);
@@ -110,6 +119,8 @@ public class bucketListItemActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+
+                                    // if the user confirms, the item gets deleted from the database
                                     userRef.child(clickedItemId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -121,6 +132,8 @@ public class bucketListItemActivity extends AppCompatActivity {
                     builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+
+                            // if the users chooses negative, the user returns to the activity
                         }
                     });
                     AlertDialog dialog = builder.create();
@@ -130,20 +143,24 @@ public class bucketListItemActivity extends AppCompatActivity {
             }
         });
 
+        // set the fields
         final TextView itemName = (TextView) findViewById(R.id.bucket_item_name);
         TextView itemDescription = (TextView) findViewById(R.id.bucket_item_description);
         CheckBox itemDone = (CheckBox) findViewById(R.id.bucket_item_done);
         photo = (ImageView) findViewById(R.id.photo_activity);
 
+        // set the texts to the fields
         itemName.setText(clickedItem.getName());
         itemDescription.setText(clickedItem.getDescription());
         itemDone.setChecked(clickedItem.getActivityDone());
 
+        // get the photo if there is a photo saved
         if(clickedItem.getPhoto() != null){
             Uri photoUri = Uri.parse(clickedItem.getPhoto());
             setPhotoInActivity(photoUri);
         }
 
+        // set the listener to the checkbox
         itemDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, final boolean b) {
@@ -168,50 +185,48 @@ public class bucketListItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(clickedItem.getLocation() != null) {
-                    // Go to the location on google maps
+
+                    // If the location ID is available go to the location on google maps
                     Intent intent1 = new Intent(bucketListItemActivity.this, ItemLocationMapsActivity.class);
                     intent1.putExtra("LOCATION_ID", clickedItem.getLocation());
                     startActivity(intent1);
                 }
                 else if(clickedItem.getLat() != null){
+
+                    // if the Lat Lng id available go to the location on google maps
                     Intent intent1 = new Intent(bucketListItemActivity.this, ItemLocationMapsActivity.class);
                     intent1.putExtra("LOCATION_LAT", clickedItem.getLat());
                     intent1.putExtra("LOCATION_LNG", clickedItem.getLng());
                     startActivity(intent1);
                 }
                 else{
+
+                    // If both latlng or locationID aren't available, show a Toast message
                     Toast.makeText(bucketListItemActivity.this, "No location found", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
+        // set the functionality to add a photo
         Button addPhoto = (Button) findViewById(R.id.btn_add_photo);
-        addPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                choosePhoto();
-            }
-        });
+        addPhoto.setOnClickListener(new choosePhoto());
 
-        //TODO: Sharing makes the android crash. Find a way to share data with others within the app. (maybe create a JSON and be able to send that? and make an activity where you can accept incoming JSON's)
+        // Set the sharing functionality to the button
         Button sharing = (Button) findViewById(R.id.btn_share);
-        sharing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-//                sendIntent.putExtra("SHARED_DATA", clickedItem);
-//                sendIntent.setType("Object/*");
-                startActivity(sendIntent);
-            }
-        });
+        sharing.setOnClickListener(new shareActivity());
     }
 
-    private void choosePhoto(){
-        Intent photoIntent = new Intent();
-        photoIntent.setType("image/*");
-        photoIntent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(photoIntent, "Select Picture"), PICK_IMAGE_REQUEST);
+    private class choosePhoto implements View.OnClickListener{
+        @Override
+        public void onClick(View view){
+
+            // on click, start the choose image proces
+            Intent photoIntent = new Intent();
+            photoIntent.setType("image/*");
+            photoIntent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(photoIntent, "Select Picture"), PICK_IMAGE_REQUEST);
+        }
     }
 
     @Override
@@ -220,12 +235,16 @@ public class bucketListItemActivity extends AppCompatActivity {
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && photoIntent != null && photoIntent.getData() != null )
         {
+
+            // when a photo is choosen, start the upload function
             filePath = photoIntent.getData();
             uploadPhoto();
         }
     }
 
     private void uploadPhoto(){
+
+        //create a new storage reference for the photo
         final StorageReference itemPhoto = storeRef.child(curUserId).child(clickedItemId);
         itemPhoto.putFile(filePath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -234,6 +253,8 @@ public class bucketListItemActivity extends AppCompatActivity {
                         itemPhoto.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
+
+                                // Save the photo in the storage and get the URI for the photo to save it in the DB
                                 photoUrl = uri;
                                 saveUriInDb();
                             }
@@ -254,6 +275,8 @@ public class bucketListItemActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ItemFromDB: dataSnapshot.getChildren()){
+
+                    // save the photo Uri to the database item and set the photo in the activity
                     ItemFromDB.getRef().child("photoUri").setValue(photoUrl.toString());
                     setPhotoInActivity(photoUrl);
                 }
@@ -265,10 +288,27 @@ public class bucketListItemActivity extends AppCompatActivity {
         });
     }
     public void setPhotoInActivity(Uri uri){
+
+        // set the photo in the activity using the glide library
         Glide
                 .with(getBaseContext())
                 .load(uri)
                 .thumbnail(0.1f)
                 .into(photo);
+    }
+
+    private class shareActivity implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+
+            // on clicked, share the item through the medium the user chooses as text
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, clickedItem.getName());
+            sendIntent.putExtra(Intent.EXTRA_TEXT, clickedItem.getDescription());
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, "Share activity"));
+        }
     }
 }

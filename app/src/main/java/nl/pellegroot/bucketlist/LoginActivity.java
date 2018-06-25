@@ -56,6 +56,7 @@ private static final int RC_SIGN_IN = 9001;
 
         mAuth = FirebaseAuth.getInstance();
 
+        // set the fields
         mEmailfield = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
 
@@ -63,6 +64,7 @@ private static final int RC_SIGN_IN = 9001;
         loginWithGoogleButton = (Button) findViewById(R.id.GoogleSignIn);
         createAccountButton = (Button) findViewById(R.id.createAccountButton);
 
+        // check if the user is not already logged in
         mAuthListener = new FirebaseAuth.AuthStateListener() {
 
             @Override
@@ -84,6 +86,8 @@ private static final int RC_SIGN_IN = 9001;
         loginWithGoogleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // if the user want to login with google, use that intent
                 startGoogleSignIn();
             }
         });
@@ -91,6 +95,8 @@ private static final int RC_SIGN_IN = 9001;
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // if the users wants to create a new user using email and password, this new intent is started
                 startActivity(new Intent(LoginActivity.this, CreateAccountActivity.class));
             }
         });
@@ -100,6 +106,8 @@ private static final int RC_SIGN_IN = 9001;
     @Override
     public void onStart() {
         super.onStart();
+
+        // check if the user is already logged in
         mAuth.addAuthStateListener(mAuthListener);
     }
 
@@ -108,9 +116,12 @@ private static final int RC_SIGN_IN = 9001;
         String emailAddress = mEmailfield.getText().toString();
         String password = mPassword.getText().toString();
 
+        // check if everything is filled
         if(TextUtils.isEmpty(emailAddress) || TextUtils.isEmpty(password)){
             Toast.makeText(LoginActivity.this, "Please fill in all the fields", Toast.LENGTH_LONG).show();
         }else{
+
+            // listens if the result is valid
             mAuth.signInWithEmailAndPassword(emailAddress,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
