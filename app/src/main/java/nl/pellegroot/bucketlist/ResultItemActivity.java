@@ -24,7 +24,7 @@ public class ResultItemActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser curUser;
     private String curUserId;
-    private bucketListItem resultItem;
+    private BucketListItem resultItem;
 
 
     @Override
@@ -42,7 +42,7 @@ public class ResultItemActivity extends AppCompatActivity {
 
         // get Intent and retrieve the item which is clicked
         Intent intent = getIntent();
-        resultItem = (bucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
+        resultItem = (BucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
 
         // set the fields
         TextView resultNameField = (TextView) findViewById(R.id.result_item_name);
@@ -77,7 +77,7 @@ public class ResultItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 userRef.push().setValue(resultItem);
-                startActivity(new Intent(ResultItemActivity.this, bucketlistActivity.class));
+                startActivity(new Intent(ResultItemActivity.this, BucketlistActivity.class));
             }
         });
 

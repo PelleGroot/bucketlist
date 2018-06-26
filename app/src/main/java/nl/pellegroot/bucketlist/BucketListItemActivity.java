@@ -44,12 +44,12 @@ import java.io.Serializable;
     this activity shows the item clicked in the bucketlist
  */
 
-public class bucketListItemActivity extends AppCompatActivity {
+public class BucketListItemActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser curUser;
     private String curUserId;
-    private bucketListItem clickedItem;
+    private BucketListItem clickedItem;
     private String clickedItemId;
     private FirebaseStorage storage;
     private StorageReference storeRef;
@@ -78,7 +78,7 @@ public class bucketListItemActivity extends AppCompatActivity {
 
         // get the item that was clicked from the intent
         Intent intent = getIntent();
-        clickedItem = (bucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
+        clickedItem = (BucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
         clickedItemFromDB = userRef.orderByChild("name").equalTo(clickedItem.getName());
 
         // get the database ID for the item
@@ -92,7 +92,7 @@ public class bucketListItemActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(bucketListItemActivity.this, "Database error, try again!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BucketListItemActivity.this, "Database error, try again!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -127,7 +127,7 @@ public class bucketListItemActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(bucketListItemActivity.this, "Database error, try again!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BucketListItemActivity.this, "Database error, try again!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -140,14 +140,14 @@ public class bucketListItemActivity extends AppCompatActivity {
                 if(clickedItem.getLocation() != null) {
 
                     // If the location ID is available go to the location on google maps
-                    Intent intent1 = new Intent(bucketListItemActivity.this, ItemLocationMapsActivity.class);
+                    Intent intent1 = new Intent(BucketListItemActivity.this, ItemLocationMapsActivity.class);
                     intent1.putExtra("LOCATION_ID", clickedItem.getLocation());
                     startActivity(intent1);
                 }
                 else if(clickedItem.getLat() != null){
 
                     // if the Lat Lng id available go to the location on google maps
-                    Intent intent1 = new Intent(bucketListItemActivity.this, ItemLocationMapsActivity.class);
+                    Intent intent1 = new Intent(BucketListItemActivity.this, ItemLocationMapsActivity.class);
                     intent1.putExtra("LOCATION_LAT", clickedItem.getLat());
                     intent1.putExtra("LOCATION_LNG", clickedItem.getLng());
                     startActivity(intent1);
@@ -155,7 +155,7 @@ public class bucketListItemActivity extends AppCompatActivity {
                 else{
 
                     // If both latlng or locationID aren't available, show a Toast message
-                    Toast.makeText(bucketListItemActivity.this, "No location found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BucketListItemActivity.this, "No location found", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -179,7 +179,7 @@ public class bucketListItemActivity extends AppCompatActivity {
                 if(menuItem.getItemId()==R.id.menu_edit)
                 {
                     // puts the items database ID and the item itself in the intent to start a edit item activity
-                    Intent intent = new Intent(bucketListItemActivity.this, AddingItemActivity.class);
+                    Intent intent = new Intent(BucketListItemActivity.this, AddingItemActivity.class);
                     intent.putExtra("CLICKED_ITEM", (Serializable)  clickedItem);
                     intent.putExtra("ITEMID", clickedItemId);
                     startActivity(intent);
@@ -201,7 +201,7 @@ public class bucketListItemActivity extends AppCompatActivity {
                                     userRef.child(clickedItemId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            startActivity(new Intent(context, bucketlistActivity.class));
+                                            startActivity(new Intent(context, BucketlistActivity.class));
                                         }
                                     });
                                 }
@@ -263,13 +263,13 @@ public class bucketListItemActivity extends AppCompatActivity {
                                 saveUriInDb();
                             }
                         });
-                        Toast.makeText(bucketListItemActivity.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BucketListItemActivity.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(bucketListItemActivity.this, "Uploading failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BucketListItemActivity.this, "Uploading failed", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

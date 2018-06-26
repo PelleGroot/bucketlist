@@ -34,7 +34,7 @@ public class SearchResultActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        ArrayList<bucketListItem> activities = intent.getParcelableArrayListExtra("ACTIVITIES");
+        ArrayList<BucketListItem> activities = intent.getParcelableArrayListExtra("ACTIVITIES");
 
         ListView searchResultList = (ListView) findViewById(R.id.lv_search_history);
         if(activities != null) {
@@ -46,7 +46,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private class ListViewResultItemClicked implements AdapterView.OnItemClickListener{
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            bucketListItem clickedItem = (bucketListItem) adapterView.getItemAtPosition(i);
+            BucketListItem clickedItem = (BucketListItem) adapterView.getItemAtPosition(i);
             Intent intent = new Intent(SearchResultActivity.this, ResultItemActivity.class);
             intent.putExtra("CLICKED_ITEM", (Serializable) clickedItem);
             startActivity(intent);

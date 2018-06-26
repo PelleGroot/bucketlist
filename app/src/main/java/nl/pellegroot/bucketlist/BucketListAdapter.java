@@ -29,13 +29,13 @@ import java.util.ArrayList;
     this is the adapter for the bucketlistActivity
  */
 
-public class bucketListAdapter extends ArrayAdapter{
-    public ArrayList<bucketListItem> bucketItemList;
+public class BucketListAdapter extends ArrayAdapter{
+    public ArrayList<BucketListItem> bucketItemList;
     private FirebaseAuth mAuth;
     private FirebaseUser curUser;
     private String curUserId;
 
-    public bucketListAdapter(@NonNull Context context, int resource, @NonNull ArrayList objects) {
+    public BucketListAdapter(@NonNull Context context, int resource, @NonNull ArrayList objects) {
         super(context, resource, objects);
         bucketItemList = objects;
     }
@@ -50,7 +50,7 @@ public class bucketListAdapter extends ArrayAdapter{
         TextView itemName = (TextView) convertView.findViewById(R.id.BI_itemName);
         final CheckBox itemDone = (CheckBox) convertView.findViewById(R.id.BI_itemDone);
 
-        bucketListItem Item = (bucketListItem) bucketItemList.get(position);
+        BucketListItem Item = (BucketListItem) bucketItemList.get(position);
 
         String buckItemName = Item.getName();
         Boolean buckItemDone = Item.getActivityDone();

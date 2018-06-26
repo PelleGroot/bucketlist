@@ -29,12 +29,12 @@ import java.util.ArrayList;
     here the app will load all the bucketlist items in the users database
  */
 
-public class bucketlistActivity extends AppCompatActivity {
+public class BucketlistActivity extends AppCompatActivity {
 
 private FirebaseAuth mAuth;
 private FirebaseUser curUser;
 private String curUserId;
-private ArrayList<bucketListItem> bucketList = new ArrayList<>();
+private ArrayList<BucketListItem> bucketList = new ArrayList<>();
 
     @Override
     protected void onResume() {
@@ -59,29 +59,29 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()){
 
                     // get the bucketlist items from the database
-                    bucketListItem bucketItem = new bucketListItem();
-                    bucketItem.setName(postSnapshot.getValue(bucketListItem.class).getName());
-                    bucketItem.setActivityDone(postSnapshot.getValue(bucketListItem.class).getActivityDone());
-                    bucketItem.setLocation(postSnapshot.getValue(bucketListItem.class).getLocation());
-                    bucketItem.setDescription(postSnapshot.getValue(bucketListItem.class).getDescription());
-                    bucketItem.setRating(postSnapshot.getValue(bucketListItem.class).getRating());
-                    bucketItem.setPhoto(postSnapshot.getValue(bucketListItem.class).getPhoto());
-                    bucketItem.setLng(postSnapshot.getValue(bucketListItem.class).getLng());
-                    bucketItem.setLat(postSnapshot.getValue(bucketListItem.class).getLat());
+                    BucketListItem bucketItem = new BucketListItem();
+                    bucketItem.setName(postSnapshot.getValue(BucketListItem.class).getName());
+                    bucketItem.setActivityDone(postSnapshot.getValue(BucketListItem.class).getActivityDone());
+                    bucketItem.setLocation(postSnapshot.getValue(BucketListItem.class).getLocation());
+                    bucketItem.setDescription(postSnapshot.getValue(BucketListItem.class).getDescription());
+                    bucketItem.setRating(postSnapshot.getValue(BucketListItem.class).getRating());
+                    bucketItem.setPhoto(postSnapshot.getValue(BucketListItem.class).getPhoto());
+                    bucketItem.setLng(postSnapshot.getValue(BucketListItem.class).getLng());
+                    bucketItem.setLat(postSnapshot.getValue(BucketListItem.class).getLat());
                     bucketList.add(bucketItem);
                 }
 
                 // set the adapter to display the bucketlist items
                 ListView Listview = findViewById(R.id.lv_bucketlist);
                 if(bucketList!= null) {
-                    Listview.setAdapter(new bucketListAdapter(bucketlistActivity.this, R.layout.activity_bucket_list_item, bucketList));
+                    Listview.setAdapter(new BucketListAdapter(BucketlistActivity.this, R.layout.activity_bucket_list_item, bucketList));
                     Listview.setOnItemClickListener(new ListViewItemClicked());
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(bucketlistActivity.this, "Database connection went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BucketlistActivity.this, "Database connection went wrong", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -98,14 +98,14 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
         btnProfile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(bucketlistActivity.this, ProfileActivity.class));
+                startActivity(new Intent(BucketlistActivity.this, ProfileActivity.class));
             }
         });
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(bucketlistActivity.this, SearchActivity.class));
+                startActivity(new Intent(BucketlistActivity.this, SearchActivity.class));
             }
         });
 
@@ -114,7 +114,7 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(bucketlistActivity.this, AddingItemActivity.class));
+                startActivity(new Intent(BucketlistActivity.this, AddingItemActivity.class));
             }
         });
 
@@ -123,8 +123,8 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
     private class ListViewItemClicked implements AdapterView.OnItemClickListener{
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            bucketListItem clickedItem = (bucketListItem) adapterView.getItemAtPosition(i);
-            Intent intent = new Intent(bucketlistActivity.this, bucketListItemActivity.class);
+            BucketListItem clickedItem = (BucketListItem) adapterView.getItemAtPosition(i);
+            Intent intent = new Intent(BucketlistActivity.this, BucketListItemActivity.class);
             intent.putExtra("CLICKED_ITEM", (Serializable) clickedItem);
             startActivity(intent);
         }

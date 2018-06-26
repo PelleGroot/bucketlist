@@ -27,7 +27,7 @@ import java.util.ArrayList;
     the result will be within range of the users location
  */
 
-public class SearchActivity extends AppCompatActivity implements searchRequest.Callback {
+public class SearchActivity extends AppCompatActivity implements SearchRequest.Callback {
     public double lat;
     public double lng;
     public String category;
@@ -101,7 +101,7 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
         btnBucketlist.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SearchActivity.this, bucketlistActivity.class));
+                startActivity(new Intent(SearchActivity.this, BucketlistActivity.class));
             }
         });
 
@@ -114,7 +114,7 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
     }
 
     @Override
-    public void gotActivities(ArrayList<bucketListItem> activities){
+    public void gotActivities(ArrayList<BucketListItem> activities){
         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
         intent.putExtra("ACTIVITIES", activities);
         startActivity(intent);
@@ -132,7 +132,7 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
             lng = location.getLongitude();
             mLocationManager.removeUpdates(this);
 
-            searchRequest searchReq = new searchRequest(SearchActivity.this);
+            SearchRequest searchReq = new SearchRequest(SearchActivity.this);
             searchReq.getActivity(SearchActivity.this, lat, lng, category);
         }
 

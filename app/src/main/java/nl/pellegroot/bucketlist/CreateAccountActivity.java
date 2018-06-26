@@ -94,7 +94,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                         userRef.setValue(curUserId);
                         userRef.child(curUserId).setValue("bucketlist");
 
-                        startActivity(new Intent(CreateAccountActivity.this, bucketlistActivity.class));
+                        startActivity(new Intent(CreateAccountActivity.this, BucketlistActivity.class));
                     }
                 }
             });
