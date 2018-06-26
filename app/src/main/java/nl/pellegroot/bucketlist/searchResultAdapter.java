@@ -10,14 +10,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-
 import java.util.ArrayList;
 
-public class searchResultAdapter extends ArrayAdapter {
+/*
+    this is the adapter for the SearchResultActivity
+ */
+
+public class SearchResultAdapter extends ArrayAdapter {
     public ArrayList<bucketListItem> bucketItemList;
 
 
-    public searchResultAdapter(@NonNull Context context, int resource, @NonNull ArrayList objects) {
+    public SearchResultAdapter(@NonNull Context context, int resource, @NonNull ArrayList objects) {
         super(context, resource, objects);
         bucketItemList = objects;
     }

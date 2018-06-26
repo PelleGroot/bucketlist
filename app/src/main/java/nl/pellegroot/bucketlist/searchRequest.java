@@ -17,6 +17,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/*
+    In this class the request for data is made to the tour-pedia API
+*/
+
 public class searchRequest implements Response.Listener<JSONArray>, Response.ErrorListener {
     public Context context;
     public Callback callback;
@@ -58,11 +62,13 @@ public class searchRequest implements Response.Listener<JSONArray>, Response.Err
         callback.gotActivities(activities);
     }
 
+    // create the API request
     public void getActivity(Callback callbackActivity, double lat, double lng, String category) {
         callback = callbackActivity;
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
+        // add filtering to the API
         String url = String.format(Locale.US, "http://tour-pedia.org/api/getPlacesByArea?S=%2.3f&N=%2.3f&W=%1.2f&E=%1.2f&category=%s",lat,(lat + 0.01), lng, (lng+0.01), category);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, this, this);

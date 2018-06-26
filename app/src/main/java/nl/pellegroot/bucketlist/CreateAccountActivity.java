@@ -20,6 +20,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/*
+    in this activity the user can create a new account based on their email and password
+ */
+
 public class CreateAccountActivity extends AppCompatActivity {
 
     private EditText emailaddressField;
@@ -67,33 +71,33 @@ public class CreateAccountActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(emailAddress) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)){
             Toast.makeText(CreateAccountActivity.this, "Please fill in all the fields", Toast.LENGTH_LONG).show();
         }
-        else{
 
-            // check if the user gave two same passwords
-            if(!password.equals(confirmPassword)){
-                Toast.makeText(CreateAccountActivity.this, "Passwords don't match", Toast.LENGTH_LONG).show();
-            }else{
-                mAuth.createUserWithEmailAndPassword(emailAddress, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(!task.isSuccessful()) {
-                            FirebaseAuthException e = (FirebaseAuthException)task.getException();
-                            Toast.makeText(CreateAccountActivity.this, "Something went wrong: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-
-                        // if task is successful, create account and log in
-                        if(task.isSuccessful()){
-                            FirebaseUser User = mAuth.getCurrentUser();
-                            curUserId = User.getUid();
-                            userRef.setValue(curUserId);
-                            userRef.child(curUserId).setValue("bucketlist");
-
-                            startActivity(new Intent(CreateAccountActivity.this, bucketlistActivity.class));
-                        }
-                    }
-                });
-            }
+        // check if the user gave two same passwords
+        else if(!password.equals(confirmPassword)){
+            Toast.makeText(CreateAccountActivity.this, "Passwords don't match", Toast.LENGTH_LONG).show();
         }
 
+        // if all the checks above are correct, continue creating user
+        else{
+            mAuth.createUserWithEmailAndPassword(emailAddress, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(!task.isSuccessful()) {
+                        FirebaseAuthException e = (FirebaseAuthException)task.getException();
+                        Toast.makeText(CreateAccountActivity.this, "Something went wrong: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    // if task is successful, create account and log in
+                    if(task.isSuccessful()){
+                        FirebaseUser User = mAuth.getCurrentUser();
+                        curUserId = User.getUid();
+                        userRef.setValue(curUserId);
+                        userRef.child(curUserId).setValue("bucketlist");
+
+                        startActivity(new Intent(CreateAccountActivity.this, bucketlistActivity.class));
+                    }
+                }
+            });
+        }
     }
 }

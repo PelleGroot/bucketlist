@@ -16,6 +16,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/*
+    This activity shows the details of the item that was clicked in the search for activities
+ */
+
 public class ResultItemActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser curUser;
@@ -77,6 +81,22 @@ public class ResultItemActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: Share functionality
+        Button share = (Button) findViewById(R.id.btn_share_result);
+        share.setOnClickListener(new shareActivity());
+    }
+
+    private class shareActivity implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+
+            // on clicked, share the item through the medium the user chooses as text
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, resultItem.getName());
+            sendIntent.putExtra(Intent.EXTRA_TEXT, resultItem.getDescription());
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, "Share activity"));
+        }
     }
 }

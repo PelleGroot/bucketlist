@@ -40,6 +40,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.Serializable;
 
+/*
+    this activity shows the item clicked in the bucketlist
+ */
+
 public class bucketListItemActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -89,57 +93,6 @@ public class bucketListItemActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(bucketListItemActivity.this, "Database error, try again!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // create a menu for the buttons 'edit' and 'delete'
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.inflateMenu(R.menu.menu);
-
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                if(menuItem.getItemId()==R.id.menu_edit)
-                {
-                    // puts the items database ID and the item itself in the intent to start a edit item activity
-                    Intent intent = new Intent(bucketListItemActivity.this, AddingItemActivity.class);
-                    intent.putExtra("CLICKED_ITEM", (Serializable)  clickedItem);
-                    intent.putExtra("ITEMID", clickedItemId);
-                    startActivity(intent);
-                }
-                else if(menuItem.getItemId()== R.id.menu_delete)
-                {
-                    // create a confirmation message before actually deleting the item
-                    final Context context = toolbar.getContext();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setCancelable(true);
-                    builder.setTitle("Warning!");
-                    builder.setMessage("Are you sure you want to delete this activity?");
-                    builder.setPositiveButton(android.R.string.yes,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    // if the user confirms, the item gets deleted from the database
-                                    userRef.child(clickedItemId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            startActivity(new Intent(context, bucketlistActivity.class));
-                                        }
-                                    });
-                                }
-                            });
-                    builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            // if the users chooses negative, the user returns to the activity
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-                return false;
             }
         });
 
@@ -215,6 +168,57 @@ public class bucketListItemActivity extends AppCompatActivity {
         // Set the sharing functionality to the button
         Button sharing = (Button) findViewById(R.id.btn_share);
         sharing.setOnClickListener(new shareActivity());
+
+        // create a menu for the buttons 'edit' and 'delete'
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.menu);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if(menuItem.getItemId()==R.id.menu_edit)
+                {
+                    // puts the items database ID and the item itself in the intent to start a edit item activity
+                    Intent intent = new Intent(bucketListItemActivity.this, AddingItemActivity.class);
+                    intent.putExtra("CLICKED_ITEM", (Serializable)  clickedItem);
+                    intent.putExtra("ITEMID", clickedItemId);
+                    startActivity(intent);
+                }
+                else if(menuItem.getItemId()== R.id.menu_delete)
+                {
+                    // create a confirmation message before actually deleting the item
+                    final Context context = toolbar.getContext();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setCancelable(true);
+                    builder.setTitle("Warning!");
+                    builder.setMessage("Are you sure you want to delete this activity?");
+                    builder.setPositiveButton(android.R.string.yes,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    // if the user confirms, the item gets deleted from the database
+                                    userRef.child(clickedItemId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            startActivity(new Intent(context, bucketlistActivity.class));
+                                        }
+                                    });
+                                }
+                            });
+                    builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            // if the users chooses negative, the user returns to the activity
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                return false;
+            }
+        });
     }
 
     private class choosePhoto implements View.OnClickListener{

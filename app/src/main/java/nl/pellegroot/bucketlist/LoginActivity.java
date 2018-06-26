@@ -25,6 +25,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+/*
+    this is the login page where the user gets checked if he already signed in or not
+    also signing in is possible by google or own email and password combination
+ */
+
 public class LoginActivity extends AppCompatActivity {
 
 private EditText mEmailfield;
@@ -63,18 +68,6 @@ private static final int RC_SIGN_IN = 9001;
         mloginButton = (Button) findViewById(R.id.signIn);
         loginWithGoogleButton = (Button) findViewById(R.id.GoogleSignIn);
         createAccountButton = (Button) findViewById(R.id.createAccountButton);
-
-        // check if the user is not already logged in
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                if(firebaseAuth.getCurrentUser() != null){
-                    startActivity(new Intent(LoginActivity.this, bucketlistActivity.class));
-                }
-            }
-        };
 
         mloginButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -181,5 +174,20 @@ private static final int RC_SIGN_IN = 9001;
                         }
                     }
                 });
+    }
+
+    private void userLoggedIn() {
+
+        // check if the user is not already logged in
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                if(firebaseAuth.getCurrentUser() != null){
+                    startActivity(new Intent(LoginActivity.this, bucketlistActivity.class));
+                }
+            }
+        };
     }
 }

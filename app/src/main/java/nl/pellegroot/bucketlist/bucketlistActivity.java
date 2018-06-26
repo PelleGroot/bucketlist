@@ -24,6 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/*
+    this is the main screen of the app
+    here the app will load all the bucketlist items in the users database
+ */
 
 public class bucketlistActivity extends AppCompatActivity {
 
@@ -36,7 +40,7 @@ private ArrayList<bucketListItem> bucketList = new ArrayList<>();
     protected void onResume() {
         super.onResume();
 
-        // doing this in the onResume instead of the onCreate to make sure that the list doesn't append when going back from another activity
+        // doing this in the onResume makes sure that the list doesn't append when coming back from another activity
         // get a connection to the firebase DB
         mAuth = FirebaseAuth.getInstance();
         curUser = mAuth.getCurrentUser();

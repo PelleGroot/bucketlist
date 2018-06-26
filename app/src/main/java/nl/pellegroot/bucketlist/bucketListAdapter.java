@@ -25,6 +25,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/*
+    this is the adapter for the bucketlistActivity
+ */
+
 public class bucketListAdapter extends ArrayAdapter{
     public ArrayList<bucketListItem> bucketItemList;
     private FirebaseAuth mAuth;

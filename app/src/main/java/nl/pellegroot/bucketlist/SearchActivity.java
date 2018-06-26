@@ -22,6 +22,11 @@ import com.google.android.gms.common.util.CrashUtils;
 import java.net.Inet4Address;
 import java.util.ArrayList;
 
+/*
+    in this activity the user can search for items in specific categories
+    the result will be within range of the users location
+ */
+
 public class SearchActivity extends AppCompatActivity implements searchRequest.Callback {
     public double lat;
     public double lng;
@@ -33,6 +38,63 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        // set the categories
+        String[] categories = new String[]{
+                "accommodation", "attraction", "restaurant", "poi"
+        };
+        final Spinner spinCategories = findViewById(R.id.category_spinner);
+        ArrayAdapter<String> CategorySpinnerAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, categories);
+        spinCategories.setAdapter(CategorySpinnerAdapter);
+
+        if (ContextCompat.checkSelfPermission(SearchActivity.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(SearchActivity.this,
+                    new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
+        } if (ContextCompat.checkSelfPermission(SearchActivity.this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(SearchActivity.this,
+                    new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
+        }
+
+        Button searchActivities = (Button) findViewById(R.id.btn_search_activity);
+        searchActivities.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                category = (String) spinCategories.getSelectedItem();
+
+                if (ContextCompat.checkSelfPermission(SearchActivity.this,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(SearchActivity.this,
+                            new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION},
+                            1);
+                } if (ContextCompat.checkSelfPermission(SearchActivity.this,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(SearchActivity.this,
+                            new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                            1);
+                }
+
+                mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                        0, 0, mLocationListener);
+
+            }
+        });
+
+        // set the menu
         Button btnBucketlist = findViewById(R.id.btn_bucketlist);
         Button btnProfile = findViewById(R.id.btn_profile);
 
@@ -47,48 +109,6 @@ public class SearchActivity extends AppCompatActivity implements searchRequest.C
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SearchActivity.this, ProfileActivity.class));
-            }
-        });
-
-        String[] categories = new String[]{
-                "accommodation", "attraction", "restaurant", "poi"
-        };
-        final Spinner spinCategories = findViewById(R.id.category_spinner);
-        ArrayAdapter<String> CategorySpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
-        spinCategories.setAdapter(CategorySpinnerAdapter);
-
-        if (ContextCompat.checkSelfPermission(SearchActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(SearchActivity.this, new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    1);
-        } if (ContextCompat.checkSelfPermission(SearchActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(SearchActivity.this, new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1);
-        }
-
-        Button searchActivities = (Button) findViewById(R.id.btn_search_activity);
-        searchActivities.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                category = (String) spinCategories.getSelectedItem();
-
-                if (ContextCompat.checkSelfPermission(SearchActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                    ActivityCompat.requestPermissions(SearchActivity.this, new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION},
-                            1);
-                } if (ContextCompat.checkSelfPermission(SearchActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                    ActivityCompat.requestPermissions(SearchActivity.this, new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                            1);
-                }
-
-                // TODO: add loading screen activity or smth
-                mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
-
             }
         });
     }

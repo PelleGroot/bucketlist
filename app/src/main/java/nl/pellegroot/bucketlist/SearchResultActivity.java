@@ -12,6 +12,11 @@ import android.widget.ListView;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/*
+    this activity show the result of the search activity
+    this activity shows all the places that you've searched for
+ */
+
 public class SearchResultActivity extends AppCompatActivity {
 
     @Override
@@ -33,7 +38,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         ListView searchResultList = (ListView) findViewById(R.id.lv_search_history);
         if(activities != null) {
-            searchResultList.setAdapter(new searchResultAdapter(SearchResultActivity.this, R.layout.search_adapter_item, activities));
+            searchResultList.setAdapter(new SearchResultAdapter(SearchResultActivity.this, R.layout.search_adapter_item, activities));
             searchResultList.setOnItemClickListener(new ListViewResultItemClicked());
         }
     }

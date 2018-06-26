@@ -35,6 +35,11 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 
+/*
+    this activity allows you to add an item to the bucketlist
+    this activity is also called when an existing item is being edited
+ */
+
 public class AddingItemActivity extends FragmentActivity implements OnConnectionFailedListener {
 
     protected PlaceDetectionClient mPlaceDetectionClient;

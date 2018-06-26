@@ -5,6 +5,10 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
+/*
+    this is a data class for the bucketlist items
+ */
+
 public class bucketListItem implements Serializable, Parcelable{
     public String name;
     public String description;
