@@ -50,7 +50,7 @@
 
             <ImageView
                 android:id="@+id/pic_profile"
-                android:layout_width="50dp"
+                android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
