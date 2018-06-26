@@ -21,7 +21,7 @@ import java.util.Locale;
     In this class the request for data is made to the tour-pedia API
 */
 
-public class searchRequest implements Response.Listener<JSONArray>, Response.ErrorListener {
+public class SearchRequest implements Response.Listener<JSONArray>, Response.ErrorListener {
     public Context context;
     public Callback callback;
 
