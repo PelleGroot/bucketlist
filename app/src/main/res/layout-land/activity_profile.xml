@@ -50,22 +50,19 @@
 
             <ImageView
                 android:id="@+id/pic_profile"
-                android:layout_width="150dp"
+                android:layout_width="50dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 app:srcCompat="@color/cardview_shadow_end_color" />
 
             <TextView
                 android:id="@+id/txt_profile_name"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:text="Profile name"
                 android:textAlignment="center"
