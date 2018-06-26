@@ -61,6 +61,18 @@ private static final int RC_SIGN_IN = 9001;
 
         mAuth = FirebaseAuth.getInstance();
 
+        // check if the user is not already logged in
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                if(firebaseAuth.getCurrentUser() != null){
+                    startActivity(new Intent(LoginActivity.this, BucketlistActivity.class));
+                }
+            }
+        };
+
         // set the fields
         mEmailfield = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
@@ -174,20 +186,5 @@ private static final int RC_SIGN_IN = 9001;
                         }
                     }
                 });
-    }
-
-    private void userLoggedIn() {
-
-        // check if the user is not already logged in
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                if(firebaseAuth.getCurrentUser() != null){
-                    startActivity(new Intent(LoginActivity.this, BucketlistActivity.class));
-                }
-            }
-        };
     }
 }

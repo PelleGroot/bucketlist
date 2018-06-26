@@ -86,6 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
         Glide
                 .with(getBaseContext())
                 .load(uri)
+                .centerCrop()
                 .thumbnail(0.1f)
                 .into(profilePic);
     }
