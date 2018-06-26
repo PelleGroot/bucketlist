@@ -21,16 +21,16 @@ import java.util.Locale;
     In this class the request for data is made to the tour-pedia API
 */
 
-public class searchRequest implements Response.Listener<JSONArray>, Response.ErrorListener {
+public class SearchRequest implements Response.Listener<JSONArray>, Response.ErrorListener {
     public Context context;
     public Callback callback;
 
-    public searchRequest(Context searchContext) {
+    public SearchRequest(Context searchContext) {
         context = searchContext;
     }
 
     public interface Callback {
-        void gotActivities(ArrayList<bucketListItem> activities);
+        void gotActivities(ArrayList<BucketListItem> activities);
         void gotActivitiesError(String message);
     }
 
@@ -41,11 +41,11 @@ public class searchRequest implements Response.Listener<JSONArray>, Response.Err
 
     @Override
     public void onResponse(JSONArray response) {
-        ArrayList<bucketListItem> activities = new ArrayList<>();
+        ArrayList<BucketListItem> activities = new ArrayList<>();
 
         try{
             for(int i=0; i<response.length(); i++){
-                bucketListItem newBucketlistItem = new bucketListItem();
+                BucketListItem newBucketlistItem = new BucketListItem();
                 JSONObject jsonObject = response.getJSONObject(i);
 
                 newBucketlistItem.setName(jsonObject.getString("name"));

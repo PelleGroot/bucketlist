@@ -47,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnBucketlist.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, bucketlistActivity.class));
+                startActivity(new Intent(ProfileActivity.this, BucketlistActivity.class));
             }
         });
 

@@ -9,7 +9,7 @@ import java.io.Serializable;
     this is a data class for the bucketlist items
  */
 
-public class bucketListItem implements Serializable, Parcelable{
+public class BucketListItem implements Serializable, Parcelable{
     public String name;
     public String description;
     public String location;
@@ -19,7 +19,7 @@ public class bucketListItem implements Serializable, Parcelable{
     public String lat;
     public String lng;
 
-    public bucketListItem() {
+    public BucketListItem() {
         this.name = "Activity";
         this.description = "description";
         this.location = null;
@@ -30,7 +30,7 @@ public class bucketListItem implements Serializable, Parcelable{
         this.lng = null;
     }
 
-    public bucketListItem (Parcel parcel) {
+    public BucketListItem (Parcel parcel) {
         this.name = parcel.readString();
         this.description = parcel.readString();
         this.location = parcel.readString();
@@ -122,16 +122,16 @@ public class bucketListItem implements Serializable, Parcelable{
     }
 
     // Method to recreate a Question from a Parcel
-    public static Creator<bucketListItem> CREATOR = new Creator<bucketListItem>() {
+    public static Creator<BucketListItem> CREATOR = new Creator<BucketListItem>() {
 
         @Override
-        public bucketListItem createFromParcel(Parcel source) {
-            return new bucketListItem(source);
+        public BucketListItem createFromParcel(Parcel source) {
+            return new BucketListItem(source);
         }
 
         @Override
-        public bucketListItem[] newArray(int size) {
-            return new bucketListItem[size];
+        public BucketListItem[] newArray(int size) {
+            return new BucketListItem[size];
         }
 
     };

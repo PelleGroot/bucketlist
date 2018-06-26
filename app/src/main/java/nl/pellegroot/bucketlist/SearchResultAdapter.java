@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 
 public class SearchResultAdapter extends ArrayAdapter {
-    public ArrayList<bucketListItem> bucketItemList;
+    public ArrayList<BucketListItem> bucketItemList;
 
 
     public SearchResultAdapter(@NonNull Context context, int resource, @NonNull ArrayList objects) {
@@ -34,7 +34,7 @@ public class SearchResultAdapter extends ArrayAdapter {
 
         TextView itemName = (TextView) convertView.findViewById(R.id.search_itemName);
 
-        bucketListItem Item = (bucketListItem) bucketItemList.get(position);
+        BucketListItem Item = (BucketListItem) bucketItemList.get(position);
 
         String buckItemName = Item.getName();
         itemName.setText(buckItemName);

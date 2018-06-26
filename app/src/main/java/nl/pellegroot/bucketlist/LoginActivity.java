@@ -122,7 +122,7 @@ private static final int RC_SIGN_IN = 9001;
                         Toast.makeText(LoginActivity.this, "Sign in error", Toast.LENGTH_LONG).show();
                     }
                     if(task.isSuccessful()){
-                        startActivity(new Intent(LoginActivity.this, bucketlistActivity.class));
+                        startActivity(new Intent(LoginActivity.this, BucketlistActivity.class));
                     }
                 }
             });
@@ -166,7 +166,7 @@ private static final int RC_SIGN_IN = 9001;
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(LoginActivity.this, bucketlistActivity.class));
+                            startActivity(new Intent(LoginActivity.this, BucketlistActivity.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -185,7 +185,7 @@ private static final int RC_SIGN_IN = 9001;
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 if(firebaseAuth.getCurrentUser() != null){
-                    startActivity(new Intent(LoginActivity.this, bucketlistActivity.class));
+                    startActivity(new Intent(LoginActivity.this, BucketlistActivity.class));
                 }
             }
         };

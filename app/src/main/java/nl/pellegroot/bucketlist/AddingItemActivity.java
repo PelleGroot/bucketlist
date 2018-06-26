@@ -100,7 +100,7 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
         final EditText inputName = findViewById(R.id.input_name);
         final EditText inputDescription = findViewById(R.id.input_description);
         Button btnAddToList = findViewById(R.id.btn_add_item_to_list);
-        final bucketListItem newItem = new bucketListItem();
+        final BucketListItem newItem = new BucketListItem();
 
         // get the clicked item from the intent if there is one
         if(intent.getSerializableExtra("CLICKED_ITEM")!= null){
@@ -109,7 +109,7 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
             btnAddToList.setText("Save edited item");
 
             // set the fields to show entries from the retrieved item
-            bucketListItem clickedItem = (bucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
+            BucketListItem clickedItem = (BucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
             final String clickedItemId = intent.getStringExtra("ITEMID");
             inputName.setText(clickedItem.getName());
             inputDescription.setText(clickedItem.getDescription());
@@ -131,7 +131,7 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
                     }
 
                     // start new activity with the new clicked item
-                    Intent intent = new Intent(AddingItemActivity.this, bucketListItemActivity.class);
+                    Intent intent = new Intent(AddingItemActivity.this, BucketListItemActivity.class);
                     intent.putExtra("CLICKED_ITEM",(Serializable) newItem);
                     startActivity(intent);
                 }
@@ -148,7 +148,7 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
                     newItem.setLocation(placeId);
 
                     userRef.push().setValue(newItem);
-                    startActivity(new Intent(AddingItemActivity.this, bucketlistActivity.class));
+                    startActivity(new Intent(AddingItemActivity.this, BucketlistActivity.class));
                 }
             });
         }

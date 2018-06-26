@@ -23,12 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".bucketlistActivity" />
+        <activity android:name=".BucketlistActivity" />
         <activity android:name=".CreateAccountActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".AddingItemActivity" />
-        <activity android:name=".bucketListItemActivity" >
+        <activity android:name=".BucketListItemActivity" >
         <intent-filter>
             <action android:name="android.intent.action.SEND"/>
             <category android:name="android.intent.category.DEFAULT" />
