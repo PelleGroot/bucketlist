@@ -5,7 +5,7 @@ When you have done an item you will also get the opportunity to write your exper
 You will be logging in through facebook. This is so you can share your bucketlist with your friends. Your friends can than opt-in on your items on the bucketlist, so you can do these activities together.
 
 ## Problem statement
-Life is amazing but you have to live it and not be stuck in a rut (N: "sleur"). To help keep life interesting, people make a bucketlist but this list is often forgotten or not completed.
+Life is amazing but you have to live it and not be stuck in a rut (NL: "sleur"). To help keep life interesting, people make a bucketlist but this list is often forgotten or not completed.
 
 __*Not anymore*__
 
