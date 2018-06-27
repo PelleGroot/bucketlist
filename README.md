@@ -44,6 +44,7 @@ Have fun using this app!
 
 ## Created by:
 Pelle Groot
+
 UVA studentnumber: 11846143
 
 Copyright © 2018 Pelle Groot, all rights reserved
