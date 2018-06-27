@@ -2,7 +2,6 @@ package nl.pellegroot.bucketlist;
 
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -70,7 +69,7 @@ public class SearchRequest implements Response.Listener<JSONArray>, Response.Err
 
         // make sure the perimeter is displayed as a decimal number
         // so the search perimeterfor stuff is not too wide
-        double finalPerimeter = (perimeter/1000d);
+        double finalPerimeter = (perimeter/5000d);
 
         // add filtering to the API
         String url = String.format(Locale.US, "http://tour-pedia.org/api/getPlacesByArea?S=%2.3f&N=%2.3f&W=%1.2f&E=%1.2f&category=%s",
