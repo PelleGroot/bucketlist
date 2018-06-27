@@ -55,10 +55,10 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_item);
 
-        // Construct a GeoDataClient.
+        // construct a GeoDataClient.
         mGeoDataClient = Places.getGeoDataClient(this, null);
 
-        // Construct a PlaceDetectionClient.
+        // construct a PlaceDetectionClient.
         mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
 
         mGoogleApiClient = new GoogleApiClient
@@ -68,7 +68,7 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
                 .enableAutoManage(this, this)
                 .build();
 
-        // Initiate Firebase database connection
+        // initiate Firebase database connection
         mAuth = FirebaseAuth.getInstance();
         curUser = mAuth.getCurrentUser();
         curUserId = curUser.getUid();

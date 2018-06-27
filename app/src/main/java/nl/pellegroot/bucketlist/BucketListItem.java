@@ -110,7 +110,7 @@ public class BucketListItem implements Serializable, Parcelable{
         return 0;
     }
 
-    // Required method to write to Parcel
+    // required method to write to Parcel
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
@@ -121,7 +121,7 @@ public class BucketListItem implements Serializable, Parcelable{
         dest.writeString(lng);
     }
 
-    // Method to recreate a Question from a Parcel
+    // method to recreate a Question from a Parcel
     public static Creator<BucketListItem> CREATOR = new Creator<BucketListItem>() {
 
         @Override

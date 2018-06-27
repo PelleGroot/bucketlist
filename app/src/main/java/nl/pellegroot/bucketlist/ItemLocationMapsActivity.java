@@ -44,15 +44,15 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_location_maps);
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        // obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        // Construct a GeoDataClient.
+        // construct a GeoDataClient.
         mGeoDataClient = Places.getGeoDataClient(this, null);
 
-        // Construct a PlaceDetectionClient.
+        // construct a PlaceDetectionClient.
         mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
 
         // construct the API client from google
@@ -105,8 +105,8 @@ public class ItemLocationMapsActivity extends FragmentActivity implements OnMapR
     }
 
     /*
-        This manipulates the map to the position or zoom the it needed to be
-        It only manipulates the map when it is available
+        this manipulates the map to the position or zoom the it needed to be
+        it only manipulates the map when it is available
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {

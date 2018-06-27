@@ -96,13 +96,11 @@ public class BucketListItemActivity extends AppCompatActivity {
             }
         });
 
-        // set the fields
         final TextView itemName = (TextView) findViewById(R.id.bucket_item_name);
         TextView itemDescription = (TextView) findViewById(R.id.bucket_item_description);
         CheckBox itemDone = (CheckBox) findViewById(R.id.bucket_item_done);
         photo = (ImageView) findViewById(R.id.photo_activity);
 
-        // set the texts to the fields
         itemName.setText(clickedItem.getName());
         itemDescription.setText(clickedItem.getDescription());
         itemDone.setChecked(clickedItem.getActivityDone());

@@ -22,7 +22,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/common_google_signin_btn_text_light_focused"
-                android:fontFamily="@font/roboto"
                 android:text="@string/profile" />
 
             <Button
@@ -30,7 +29,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto"
                 android:text="@string/bucketlist" />
 
             <Button
@@ -38,7 +36,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/roboto"
                 android:text="@string/search" />
 
         </LinearLayout>

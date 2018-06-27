@@ -46,22 +46,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRequest.C
         ArrayAdapter<String> CategorySpinnerAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, categories);
         spinCategories.setAdapter(CategorySpinnerAdapter);
-
-        if (ContextCompat.checkSelfPermission(SearchActivity.this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(SearchActivity.this,
-                    new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    1);
-        } if (ContextCompat.checkSelfPermission(SearchActivity.this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(SearchActivity.this,
-                    new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1);
-        }
+        checkPermission();
 
         Button searchActivities = (Button) findViewById(R.id.btn_search_activity);
         searchActivities.setOnClickListener(new View.OnClickListener() {
@@ -70,22 +55,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRequest.C
             public void onClick(View view) {
 
                 category = (String) spinCategories.getSelectedItem();
-
-                if (ContextCompat.checkSelfPermission(SearchActivity.this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-
-                    ActivityCompat.requestPermissions(SearchActivity.this,
-                            new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION},
-                            1);
-                } if (ContextCompat.checkSelfPermission(SearchActivity.this,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-
-                    ActivityCompat.requestPermissions(SearchActivity.this,
-                            new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                            1);
-                }
+                checkPermission();
 
                 mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
                 mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
@@ -151,4 +121,24 @@ public class SearchActivity extends AppCompatActivity implements SearchRequest.C
 
         }
     };
+
+    private void checkPermission(){
+
+        // checks location permissions and if not authorized, it asks for permission
+        if (ContextCompat.checkSelfPermission(SearchActivity.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(SearchActivity.this,
+                    new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
+        } if (ContextCompat.checkSelfPermission(SearchActivity.this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(SearchActivity.this,
+                    new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
+        }
+    }
 }

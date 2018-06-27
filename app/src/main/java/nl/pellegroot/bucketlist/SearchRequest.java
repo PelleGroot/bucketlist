@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /*
-    In this class the request for data is made to the tour-pedia API
+    in this class the request for data is made to the tour-pedia API
 */
 
 public class SearchRequest implements Response.Listener<JSONArray>, Response.ErrorListener {

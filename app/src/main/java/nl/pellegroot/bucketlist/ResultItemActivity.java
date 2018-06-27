@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /*
-    This activity shows the details of the item that was clicked in the search for activities
+    this activity shows the details of the item that was clicked in the search for activities
  */
 
 public class ResultItemActivity extends AppCompatActivity {
@@ -32,7 +32,7 @@ public class ResultItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_item);
 
-        // Initiate Firebase database connection
+        // initiate Firebase database connection
         mAuth = FirebaseAuth.getInstance();
         curUser = mAuth.getCurrentUser();
         curUserId = curUser.getUid();
@@ -44,7 +44,6 @@ public class ResultItemActivity extends AppCompatActivity {
         Intent intent = getIntent();
         resultItem = (BucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
 
-        // set the fields
         TextView resultNameField = (TextView) findViewById(R.id.result_item_name);
         TextView resultDescriptionField = (TextView) findViewById(R.id.result_item_description);
 
@@ -58,7 +57,7 @@ public class ResultItemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(resultItem.getLat() != null) {
 
-                    // Go to the location on google maps
+                    // go to the location on google maps
                     Intent intent1 = new Intent(ResultItemActivity.this, ItemLocationMapsActivity.class);
                     intent1.putExtra("LOCATION_LAT", resultItem.getLat());
                     intent1.putExtra("LOCATION_LNG", resultItem.getLng());
@@ -71,7 +70,7 @@ public class ResultItemActivity extends AppCompatActivity {
             }
         });
 
-        // Set the 'save'/'add to list' button
+        // set the 'add to list' button
         Button addToList = (Button) findViewById(R.id.btn_add_to_list);
         addToList.setOnClickListener(new View.OnClickListener() {
             @Override
