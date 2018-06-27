@@ -35,3 +35,14 @@ The following functionalities will be in the app:
 ## Libraries
 * [Glide](https://github.com/bumptech/glide)
 * [Volley](https://developer.android.com/training/volley/)
+
+
+# Have fun!
+Have fun using this app!
+
+## Created by:
+Pelle Groot
+
+UVA studentnumber: 11846143
+
+Copyright © 2018 Pelle Groot, all rights reserved
