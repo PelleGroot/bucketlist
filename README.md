@@ -32,7 +32,7 @@ The following functionalities will be in the app:
 * [Google Firebase Authentication and database](https://firebase.google.com/docs/auth/users)
 * [Tour-Pedia API](http://tour-pedia.org/api/index.html)
 * [Google places SDK](https://developers.google.com/places/android-sdk/intro)
-* [Google Maps SDK]{https://developers.google.com/maps/documentation/android-sdk/intro}
+* [Google Maps SDK](https://developers.google.com/maps/documentation/android-sdk/intro)
 
 ## Libraries
 * [Glide](https://github.com/bumptech/glide)
