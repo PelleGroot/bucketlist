@@ -19,18 +19,31 @@ The result of this search can be viewed and the items can be added to their own 
 
 ### Classes/Modules
 AddingItemActivity - Adding a item to the bucketlist
+
 BucketlistActivity - The bucketlist itself
+
 BucketListAdapter - Adapter which fills the BucketlistActivity ListView with items from the Firebase database
+
 BucketListItem - Dataclass, see Data for more
+
 BucketListItemActivity - Details of an item within the bucketlist, which can also contain a photo which is stored in the Firebase storage
+
 CreateAccountActivity - Create an account for the app using email and a password
+
 ItemLocationMapsActivity - Using the Maps SDK, the items can have a location pinned to them
+
 LoginActivity - Login page using the Firebase Authentication
+
 ProfileActivity - The profile page of the user, this is also where the users can sign out
+
 ResultItemActivity - The details of a selected searched item
+
 SearchActivity - The page where you can search for other activities in the neighbourhood using the Tour-Pedia API
+
 SearchRequest - The request that is made to the API to get all the activities
+
 SearchResultActivity - The list of items that has been requested from the API
+
 SearchResultAdapter - The adapter that is being used to show the searched item into the searchActivityResult ListView
 
 ### Data
