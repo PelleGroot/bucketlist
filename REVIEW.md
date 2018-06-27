@@ -30,10 +30,15 @@ resultItemActivity: Another button which you can set in the XML
 consistency in comments (uppercase)
 
 BucketListAdapter: ln 50 - 58 declaring together, delete whitespace
+
 BucketListItem: Group getters and setter after other function
+
 SearchActivity: group getting permission to location in a function
+
 LoginActivity: whitespace before comments
+
 CreateAccountActivity: ln 34 redundant tab
+
 ResultItemActivity: no brackets needed when there is just one line of code
 
 - comments: 3
