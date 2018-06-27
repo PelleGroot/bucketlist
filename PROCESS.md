@@ -31,7 +31,23 @@ Got the maps zoom working and got adding and saving an image working
 ### 20-6
 Could not find a way to get the Adventure API working, but found another API http://tour-pedia.org/api/index.html that is free and will work.
 This is why I deleted some attributes inside the bucketlistItem class. I won't show costs of activities anymore.
-EDIT: the new API requests way too many places. Thinking of a way to reduct this amount.
+EDIT: the new API requests way too many places. Thinking of a way to reduce this amount.
 
+### 21-6
+Had an idea about how to fix the result. Using the location of the device instead of the input from the user
+
+### 22-6
+Fixed getting the location of the device and pass it onto the API to get a list of results in the neighbourhood.
+The perimeter is fixed, and not variable again.
+
+### 25-6
+Made the code prettier and fixed some UI issues
+
+### 26-6
+Had a code review with Puja and used her comments to refactor my code
+
+### 27-6
+Made some last code changes to the searchActivity, now the user is able to select a perimeter for the search
+Also finished up my code and did a review with Nina and also worked her comments in my code
 
 

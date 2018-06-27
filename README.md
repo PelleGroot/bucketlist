@@ -1,6 +1,6 @@
 # Bucketlist
 This app will allow you to keep track of your bucketlist, add new items on the list and let you check them, when you've done it.
-When you have done an item you will also get the opporunity to write your experience, and add a picture.
+When you have done an item you will also get the opportunity to write your experience, and add a picture.
 
 You will be logging in through facebook. This is so you can share your bucketlist with your friends. Your friends can than opt-in on your items on the bucketlist, so you can do these activities together.
 
@@ -15,26 +15,25 @@ The things on your bucket list does not have to be exciting skydiving/bungiejump
 ## Functions
 The following functionalities will be in the app:
 
-* able to log in (MVP)
-* a list of items (MVP)
-* to add items to the list (MVP)
-* to check off items of the list (MVP)
-* to write you experiences of the item (MVP)
+* able to log in
+    * using google
+    * using email and password
+* a list of items
+* to add items to the list
+* to check off items of the list
+* to write your experiences (change description)
 * add photos to your items
 * to add locations to the items
-* rate the items on how you liked it
-* share items with friends
-* share your list with friends
-* set a reminder of your bucketlist items
-* Browse cool activities in different locations
+* share list items with friends
+* Browse cool activities around your locations
 * Add those browsed activities to your own bucketlist
 
 ## External components
 * [Google Firebase Authentication and database](https://firebase.google.com/docs/auth/users)
-* [Adventure bucketlist API](http://developer.adventurebucketlist.com/?javascript#introduction-to-api)
+* [Tour-Pedia API](http://tour-pedia.org/api/index.html)
 * [Google places API](https://developers.google.com/places/android-sdk/intro)
+* [Google Maps API]{}
 
-## Images
-For a clickable UI design, visit [this](https://www.fluidui.com/editor/live/project/p_GaQRHQzD5po83MybhQaNpEQLfzozx631)
-
-![Prototype UI](/images/Bucketlist_app.png)
+## Libraries
+* [Glide](https://github.com/bumptech/glide)
+* [Volley](https://developer.android.com/training/volley/)
