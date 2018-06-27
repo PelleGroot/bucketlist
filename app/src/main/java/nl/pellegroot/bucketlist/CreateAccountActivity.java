@@ -31,7 +31,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private EditText confirmPasswordField;
     private Button createAccountButton;
     private FirebaseAuth mAuth;
-        private DatabaseReference userRef;
+    private DatabaseReference userRef;
     private FirebaseDatabase database;
     private String curUserId;
 

@@ -49,7 +49,6 @@ public class BucketListAdapter extends ArrayAdapter{
 
         TextView itemName = (TextView) convertView.findViewById(R.id.BI_itemName);
         final CheckBox itemDone = (CheckBox) convertView.findViewById(R.id.BI_itemDone);
-
         BucketListItem Item = (BucketListItem) bucketItemList.get(position);
 
         String buckItemName = Item.getName();

@@ -64,9 +64,8 @@ public class ResultItemActivity extends AppCompatActivity {
                     intent1.putExtra("LOCATION_NAME", resultItem.getName());
                     startActivity(intent1);
                 }
-                else{
+                else
                     Toast.makeText(ResultItemActivity.this, "No location found", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
