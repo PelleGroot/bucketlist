@@ -34,4 +34,5 @@
     <string name="sign_out">Sign out</string>
     <string name="title_activity_item_location_maps">Map</string>
     <string name="search_explained">Search for a category in the neighbourhood of where you are</string>
+    <string name="search_perimeter">Search perimeter: </string>
 </resources>

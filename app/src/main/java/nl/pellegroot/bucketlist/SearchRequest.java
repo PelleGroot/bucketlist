@@ -2,6 +2,7 @@ package nl.pellegroot.bucketlist;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -62,13 +63,18 @@ public class SearchRequest implements Response.Listener<JSONArray>, Response.Err
     }
 
     // create the API request
-    public void getActivity(Callback callbackActivity, double lat, double lng, String category) {
+    public void getActivity(Callback callbackActivity, double lat, double lng, String category, int perimeter) {
         callback = callbackActivity;
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
+        // make sure the perimeter is displayed as a decimal number
+        // so the search perimeterfor stuff is not too wide
+        double finalPerimeter = (perimeter/1000d);
+
         // add filtering to the API
-        String url = String.format(Locale.US, "http://tour-pedia.org/api/getPlacesByArea?S=%2.3f&N=%2.3f&W=%1.2f&E=%1.2f&category=%s",lat,(lat + 0.01), lng, (lng+0.01), category);
+        String url = String.format(Locale.US, "http://tour-pedia.org/api/getPlacesByArea?S=%2.3f&N=%2.3f&W=%1.2f&E=%1.2f&category=%s",
+                (lat - finalPerimeter),(lat + finalPerimeter), (lng - finalPerimeter), (lng+finalPerimeter), category);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, this, this);
         queue.add(jsonArrayRequest);

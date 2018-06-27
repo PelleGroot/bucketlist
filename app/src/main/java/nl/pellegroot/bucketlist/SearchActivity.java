@@ -12,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,8 +27,10 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity implements SearchRequest.Callback {
     public double lat;
     public double lng;
+    public int perimeter;
     public String category;
     public LocationManager mLocationManager;
+    public TextView showPerimeter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,28 @@ public class SearchActivity extends AppCompatActivity implements SearchRequest.C
         ArrayAdapter<String> CategorySpinnerAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, categories);
         spinCategories.setAdapter(CategorySpinnerAdapter);
+
+        showPerimeter = (TextView) findViewById(R.id.show_perimeter);
+        final SeekBar searchPerimeter = (SeekBar) findViewById(R.id.perimeter_bar);
+
+        // makes sure the user can see the selected perimeter
+        searchPerimeter.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                perimeter = i;
+                showPerimeter.setText(String.valueOf(perimeter));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
         checkPermission();
 
         Button searchActivities = (Button) findViewById(R.id.btn_search_activity);
@@ -50,6 +76,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRequest.C
             public void onClick(View view) {
 
                 category = (String) spinCategories.getSelectedItem();
+                perimeter = searchPerimeter.getProgress();
                 checkPermission();
 
                 mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -98,7 +125,7 @@ public class SearchActivity extends AppCompatActivity implements SearchRequest.C
             mLocationManager.removeUpdates(this);
 
             SearchRequest searchReq = new SearchRequest(SearchActivity.this);
-            searchReq.getActivity(SearchActivity.this, lat, lng, category);
+            searchReq.getActivity(SearchActivity.this, lat, lng, category, perimeter);
         }
 
         @Override
