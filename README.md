@@ -27,7 +27,9 @@ The following functionalities will be in the app:
 * Add those browsed activities to your own bucketlist
 
 ## External components
-* [Google Firebase Authentication and database](https://firebase.google.com/docs/auth/users)
+* [Google Firebase Authentication](https://firebase.google.com/docs/auth/users)
+* [Google Firebase database](https://firebase.google.com/docs/database/)
+* [Google Firebase Storage](https://firebase.google.com/docs/storage/)
 * [Tour-Pedia API](http://tour-pedia.org/api/index.html)
 * [Google places SDK](https://developers.google.com/places/android-sdk/intro)
 * [Google Maps SDK](https://developers.google.com/maps/documentation/android-sdk/intro)
