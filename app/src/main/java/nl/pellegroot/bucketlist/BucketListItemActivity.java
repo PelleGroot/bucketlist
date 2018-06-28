@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -56,6 +57,7 @@ public class BucketListItemActivity extends AppCompatActivity {
     private ImageView photo;
     private Uri photoUrl;
     private Query clickedItemFromDB;
+    private CheckBox itemDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,8 @@ public class BucketListItemActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ItemFromDB: dataSnapshot.getChildren()){
                     clickedItemId = ItemFromDB.getRef().getKey();
+                    clickedItem.setActivityDone((Boolean) ItemFromDB.child("activityDone").getValue());
+                    itemDone.setChecked(clickedItem.getActivityDone());
                 }
             }
 
@@ -96,12 +100,11 @@ public class BucketListItemActivity extends AppCompatActivity {
 
         final TextView itemName = (TextView) findViewById(R.id.bucket_item_name);
         TextView itemDescription = (TextView) findViewById(R.id.bucket_item_description);
-        CheckBox itemDone = (CheckBox) findViewById(R.id.bucket_item_done);
+        itemDone = (CheckBox) findViewById(R.id.bucket_item_done);
         photo = (ImageView) findViewById(R.id.photo_activity);
 
         itemName.setText(clickedItem.getName());
         itemDescription.setText(clickedItem.getDescription());
-        itemDone.setChecked(clickedItem.getActivityDone());
 
         // get the photo if there is a photo saved
         if(clickedItem.getPhoto() != null){
@@ -109,15 +112,16 @@ public class BucketListItemActivity extends AppCompatActivity {
             setPhotoInActivity(photoUri);
         }
 
-        // set the listener to the checkbox
-        itemDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        itemDone.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, final boolean b) {
+            public void onClick(View view) {
+                final Boolean isChecked = itemDone.isChecked();
                 clickedItemFromDB.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot ItemFromDB: dataSnapshot.getChildren()){
-                            ItemFromDB.getRef().child("activityDone").setValue(b);
+                            ItemFromDB.getRef().child("activityDone").setValue(isChecked);
                         }
                     }
 
@@ -128,6 +132,26 @@ public class BucketListItemActivity extends AppCompatActivity {
                 });
             }
         });
+
+//        // set the listener to the checkbox
+//        itemDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, final boolean b) {
+//                clickedItemFromDB.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        for(DataSnapshot ItemFromDB: dataSnapshot.getChildren()){
+//                            ItemFromDB.getRef().child("activityDone").setValue(b);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//                        Toast.makeText(BucketListItemActivity.this, "Database error, try again!", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+//        });
 
         ImageButton locationItem = (ImageButton) findViewById(R.id.location_icon);
         locationItem.setOnClickListener(new View.OnClickListener() {
