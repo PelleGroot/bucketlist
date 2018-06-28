@@ -1,7 +1,6 @@
 package nl.pellegroot.bucketlist;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -30,8 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
-
 /*
     this activity allows you to add an item to the bucketlist
     this activity is also called when an existing item is being edited
@@ -47,7 +44,6 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
     private GoogleApiClient mGoogleApiClient;
     private String placeId;
     private DatabaseReference userRef;
-    private boolean check;
     private String clickedItemId;
     private EditText inputName;
     private EditText inputDescription;
@@ -87,7 +83,6 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
             @Override
             public void onPlaceSelected(Place place) {
                 placeId = place.getId();
-                Log.i("OnPlaceSelected", "Place: " + place.getId());
             }
 
             @Override
@@ -112,7 +107,7 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
             btnAddToList.setText("Save edited item");
 
             // set the fields to show entries from the retrieved item
-            BucketListItem clickedItem = (BucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
+            final BucketListItem clickedItem = (BucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
             clickedItemId = intent.getStringExtra("ITEMID");
             inputName.setText(clickedItem.getName());
             inputDescription.setText(clickedItem.getDescription());
@@ -143,19 +138,19 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
                     // if the name is already in the DB check if the ID is the same
                     if(itemFromDb.getRef().getKey().equals(clickedItemId)){
                         setEditItemToDb();
-                        check = true;
                     }
 
                     // if the ID is not the same, create a toast message
                     else if(!itemFromDb.getRef().getKey().equals(clickedItemId)){
                         Toast.makeText(AddingItemActivity.this, "Name is already taken, please use a different name", Toast.LENGTH_LONG).show();
-                        check = false;
                     }
                 }
 
                 // if the name is no found in the database, create it
-                if(!dataSnapshot.exists()){
+                if((!dataSnapshot.exists())&& clickedItemId == null){
                     setNewItemToDb();
+                } else if((!dataSnapshot.exists())){
+                    setEditItemToDb();
                 }
             }
             @Override
