@@ -1,6 +1,7 @@
 package nl.pellegroot.bucketlist;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -22,8 +23,12 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 
@@ -41,6 +46,12 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
     private String curUserId;
     private GoogleApiClient mGoogleApiClient;
     private String placeId;
+    private DatabaseReference userRef;
+    private boolean check;
+    private String clickedItemId;
+    private EditText inputName;
+    private EditText inputDescription;
+    private BucketListItem newItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +77,7 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
         curUserId = curUser.getUid();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference userRef = database.getReference("Users").child(curUserId).child("bucketlist");
+        userRef = database.getReference("Users").child(curUserId).child("bucketlist");
 
         // get the autocomplete location field
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
@@ -89,10 +100,10 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
         Intent intent = getIntent();
 
         // set the buttons and fields
-        final EditText inputName = findViewById(R.id.input_name);
-        final EditText inputDescription = findViewById(R.id.input_description);
+        inputName = findViewById(R.id.input_name);
+        inputDescription = findViewById(R.id.input_description);
         Button btnAddToList = findViewById(R.id.btn_add_item_to_list);
-        final BucketListItem newItem = new BucketListItem();
+        newItem = new BucketListItem();
 
         // get the clicked item from the intent if there is one
         if(intent.getSerializableExtra("CLICKED_ITEM")!= null){
@@ -102,52 +113,81 @@ public class AddingItemActivity extends FragmentActivity implements OnConnection
 
             // set the fields to show entries from the retrieved item
             BucketListItem clickedItem = (BucketListItem) intent.getSerializableExtra("CLICKED_ITEM");
-            final String clickedItemId = intent.getStringExtra("ITEMID");
+            clickedItemId = intent.getStringExtra("ITEMID");
             inputName.setText(clickedItem.getName());
             inputDescription.setText(clickedItem.getDescription());
-
-            // set the items in the database to the edited fields
-            btnAddToList.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    newItem.setName(inputName.getText().toString());
-                    newItem.setDescription(inputDescription.getText().toString());
-
-                    userRef.child(clickedItemId).child("name").setValue(newItem.getName());
-                    userRef.child(clickedItemId).child("description").setValue(newItem.getDescription());
-
-                    // if the location is nog changed, it will not change the location in the database to null
-                    if(placeId != null){
-                        newItem.setLocation(placeId);
-                        userRef.child(clickedItemId).child("location").setValue(newItem.getLocation());
-                    }
-
-                    // start new activity with the new clicked item
-                    Intent intent = new Intent(AddingItemActivity.this, BucketListItemActivity.class);
-                    intent.putExtra("CLICKED_ITEM",(Serializable) newItem);
-                    startActivity(intent);
-                }
-            });
         }
-        else {
 
-            // if there is no item in the intent, it will start a empty activity to add a new item to the DB
-            btnAddToList.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    newItem.setName(inputName.getText().toString());
-                    newItem.setDescription(inputDescription.getText().toString());
-                    newItem.setLocation(placeId);
-
-                    userRef.push().setValue(newItem);
-                    startActivity(new Intent(AddingItemActivity.this, BucketlistActivity.class));
-                }
-            });
-        }
+        // add item to the DB
+        btnAddToList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkItemName(inputName.getText().toString());
+            }
+        });
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(this, "Connection failed", Toast.LENGTH_SHORT).show();
+    }
+
+    // check if the item has the same name as an item in the DB
+    public void checkItemName(String name){
+        Query query = userRef.orderByChild("name").equalTo(name);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot itemFromDb : dataSnapshot.getChildren()){
+
+                    // if the name is already in the DB check if the ID is the same
+                    if(itemFromDb.getRef().getKey().equals(clickedItemId)){
+                        setEditItemToDb();
+                        check = true;
+                    }
+
+                    // if the ID is not the same, create a toast message
+                    else if(!itemFromDb.getRef().getKey().equals(clickedItemId)){
+                        Toast.makeText(AddingItemActivity.this, "Name is already taken, please use a different name", Toast.LENGTH_LONG).show();
+                        check = false;
+                    }
+                }
+
+                // if the name is no found in the database, create it
+                if(!dataSnapshot.exists()){
+                    setNewItemToDb();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    // set the edited fields to the item in the DB
+    public void setEditItemToDb(){
+        newItem.setName(inputName.getText().toString());
+        newItem.setDescription(inputDescription.getText().toString());
+
+        userRef.child(clickedItemId).child("name").setValue(newItem.getName());
+        userRef.child(clickedItemId).child("description").setValue(newItem.getDescription());
+
+        // if the location is nog changed, it will not change the location in the database to null
+        if (placeId != null) {
+            userRef.child(clickedItemId).child("location").setValue(placeId);
+        }
+
+        // start new activity with the new clicked item
+        Intent intent = new Intent(AddingItemActivity.this, BucketlistActivity.class);
+        startActivity(intent);
+    }
+
+    // create a new item in the DB
+    public void setNewItemToDb(){
+        newItem.setName(inputName.getText().toString());
+        newItem.setDescription(inputDescription.getText().toString());
+        newItem.setLocation(placeId);
+        userRef.push().setValue(newItem);
+        startActivity(new Intent(AddingItemActivity.this, BucketlistActivity.class));
     }
 }
